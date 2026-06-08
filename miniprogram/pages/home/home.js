@@ -2,6 +2,8 @@
 const app = getApp();
 const storage = require('../../utils/storage');
 const pageState = require('../../utils/page-state');
+const db = require('../../utils/db');
+const resumePreview = require('../../utils/resume-preview');
 
 Page({
   data: {
@@ -17,6 +19,11 @@ Page({
   onShow() {
     // 每次显示时刷新简历列表
     this.loadResumeList();
+  },
+
+  onReady() {
+    // 页面渲染完成后生成预览图
+    this.generatePreviews();
   },
 
   // 加载数据
@@ -48,45 +55,48 @@ Page({
   },
 
   // 加载简历列表
-  loadResumeList() {
-    let resumeList = app.globalData.resumeList;
+  async loadResumeList() {
+    try {
+      // 从云数据库加载真实数据
+      const resumes = await db.getUserResumes();
+
+      if (resumes && resumes.length > 0) {
+        this.setData({
+          resumeList: resumes.slice(0, 3) // 只显示最近的3个
+        });
+      } else {
+        // 使用示例数据
+        this.setData({
+          resumeList: []
+        });
+      }
+    } catch (err) {
+      console.error('加载简历列表失败:', err);
+      // 降级使用本地数据
+      this.setData({
+        resumeList: []
+      });
+    }
+  },
+
+  // 生成预览图
+  generatePreviews() {
+    const resumeList = this.data.resumeList;
 
     if (!resumeList || resumeList.length === 0) {
-      resumeList = storage.getResumeList();
+      return;
     }
 
-    if (!resumeList || resumeList.length === 0) {
-      resumeList = [
-        {
-          id: 1,
-          title: '产品经理-校招版',
-          updateTime: '2 小时前',
-          progress: 85,
-          status: 'draft'
-        },
-        {
-          id: 2,
-          title: '设计实习生',
-          updateTime: '5 天前',
-          progress: 100,
-          status: 'completed'
-        },
-        {
-          id: 3,
-          title: '运营岗-社招',
-          updateTime: '1 周前',
-          progress: 40,
-          status: 'draft'
-        }
-      ];
-    }
-
-    this.setData({
-      resumeList: resumeList.slice(0, 3) // 只显示最近的3个
-    });
-
-    // 保存到本地存储
-    storage.setResumeList(resumeList);
+    // 使用 Canvas 生成预览图
+    resumePreview.generateBatchPreviews(resumeList)
+      .then(updatedList => {
+        this.setData({
+          resumeList: updatedList
+        });
+      })
+      .catch(err => {
+        console.error('生成预览图失败:', err);
+      });
   },
 
   // 新建简历

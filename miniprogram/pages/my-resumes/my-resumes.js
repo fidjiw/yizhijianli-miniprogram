@@ -1,6 +1,7 @@
 // pages/my-resumes/my-resumes.js
 const db = require('../../utils/db');
 const wxAuth = require('../../utils/wx-auth');
+const resumePreview = require('../../utils/resume-preview');
 
 Page({
   data: {
@@ -37,6 +38,11 @@ Page({
     }
   },
 
+  onReady() {
+    // 页面渲染完成后生成预览图
+    this.generatePreviews();
+  },
+
   // 加载简历列表
   loadResumes() {
     this.setData({ loading: true });
@@ -48,6 +54,11 @@ Page({
           loading: false,
           empty: resumes.length === 0
         });
+
+        // 加载完成后生成预览图
+        if (resumes.length > 0) {
+          this.generatePreviews();
+        }
       })
       .catch(err => {
         console.error('加载简历列表失败:', err);
@@ -59,6 +70,26 @@ Page({
           title: '加载失败',
           icon: 'none'
         });
+      });
+  },
+
+  // 生成预览图
+  generatePreviews() {
+    const resumes = this.data.resumes;
+
+    if (!resumes || resumes.length === 0) {
+      return;
+    }
+
+    // 使用 Canvas 生成预览图
+    resumePreview.generateBatchPreviews(resumes)
+      .then(updatedList => {
+        this.setData({
+          resumes: updatedList
+        });
+      })
+      .catch(err => {
+        console.error('生成预览图失败:', err);
       });
   },
 
