@@ -9,19 +9,19 @@
         <view class="avatar-placeholder" wx:else>📷</view>
       </button>
       <view class="user-detail">
-        <!-- 改为普通输入框，让用户手动输入昵称 -->
-        <view class="nickname-wrapper">
+        <!-- 昵称输入区域 -->
+        <view class="nickname-container">
           <input
             class="user-name-input"
             value="{{userInfo.nickname}}"
-            placeholder="设置昵称"
+            placeholder="设置你的昵称"
             placeholder-class="nickname-placeholder"
             bindblur="onNicknameBlur"
             maxlength="20"
           />
-          <text class="edit-icon" wx:if="{{!userInfo.nickname || userInfo.nickname === '点击输入昵称'}}">✏️</text>
+          <text class="edit-hint" wx:if="{{!userInfo.nickname || userInfo.nickname === '点击输入昵称' || userInfo.nickname === '设置你的昵称'}}">轻触设置 ✏️</text>
         </view>
-        <text class="user-status">{{userInfo.vip ? '👑 会员' : '普通用户'}}</text>
+        <text class="user-status">{{userInfo.vip ? '👑 会员用户' : '普通用户'}}</text>
       </view>
     </view>
 
