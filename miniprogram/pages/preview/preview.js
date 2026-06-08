@@ -45,6 +45,13 @@ Page({
           return;
         }
 
+        // 确保 templateId 存在，默认为 1
+        if (!resume.templateId) {
+          resume.templateId = 1;
+        }
+
+        console.log('✓ 加载简历成功，使用模板:', resume.templateId);
+
         this.setData({
           resumeData: resume,
           loading: false

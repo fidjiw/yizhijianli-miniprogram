@@ -12,9 +12,9 @@
     <text class="loading-text">加载中...</text>
   </view>
 
-  <!-- 简历内容 -->
+  <!-- 简历内容 - 根据模板ID应用不同样式 -->
   <scroll-view class="preview-content" scroll-y wx:else>
-    <view class="resume-preview" id="resume-canvas">
+    <view class="resume-preview template-{{resumeData.templateId || 1}}" id="resume-canvas">
 
       <!-- 头部信息 -->
       <view class="resume-header">

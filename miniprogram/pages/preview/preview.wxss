@@ -56,6 +56,84 @@
   box-shadow: 0 8rpx 32rpx rgba(30, 50, 60, 0.08);
 }
 
+/* ========== 模板1：清新简约（青绿色） ========== */
+.resume-preview.template-1 .resume-position {
+  color: #0FB9A6;
+}
+
+.resume-preview.template-1 .title-marker {
+  background: linear-gradient(135deg, #2DD4BF, #0FB9A6);
+}
+
+.resume-preview.template-1 .resume-header {
+  border-bottom: 2rpx solid #E6FBF7;
+}
+
+/* ========== 模板2：活力橙调（橙色） ========== */
+.resume-preview.template-2 .resume-position {
+  color: #FF8C42;
+}
+
+.resume-preview.template-2 .title-marker {
+  background: linear-gradient(135deg, #FFB084, #FF8C42);
+}
+
+.resume-preview.template-2 .resume-header {
+  border-bottom: 2rpx solid #FFF1E9;
+}
+
+/* ========== 模板3：商务蓝调（蓝色） ========== */
+.resume-preview.template-3 .resume-position {
+  color: #5B8FF9;
+}
+
+.resume-preview.template-3 .title-marker {
+  background: linear-gradient(135deg, #7BA3FC, #5B8FF9);
+}
+
+.resume-preview.template-3 .resume-header {
+  border-bottom: 2rpx solid #EAF0FF;
+}
+
+/* ========== 模板4：紫调创意（紫色） ========== */
+.resume-preview.template-4 .resume-position {
+  color: #9D5BD2;
+}
+
+.resume-preview.template-4 .title-marker {
+  background: linear-gradient(135deg, #B88BE0, #9D5BD2);
+}
+
+.resume-preview.template-4 .resume-header {
+  border-bottom: 2rpx solid #F3ECFF;
+}
+
+/* ========== 模板5：极简黑白（灰色） ========== */
+.resume-preview.template-5 .resume-position {
+  color: #495057;
+}
+
+.resume-preview.template-5 .title-marker {
+  background: linear-gradient(135deg, #6C757D, #495057);
+}
+
+.resume-preview.template-5 .resume-header {
+  border-bottom: 2rpx solid #E9ECEF;
+}
+
+/* ========== 模板6：活力青春（黄色） ========== */
+.resume-preview.template-6 .resume-position {
+  color: #FFA940;
+}
+
+.resume-preview.template-6 .title-marker {
+  background: linear-gradient(135deg, #FFC069, #FFA940);
+}
+
+.resume-preview.template-6 .resume-header {
+  border-bottom: 2rpx solid #FFF5E6;
+}
+
 /* 简历头部 */
 .resume-header {
   text-align: center;
