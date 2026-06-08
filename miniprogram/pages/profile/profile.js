@@ -63,6 +63,14 @@ Page({
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail;
 
+    console.log('选择的头像:', avatarUrl);
+
+    // 临时方案：直接使用临时路径，不上传云存储
+    // 真机上临时路径也可以显示
+    this.saveUserInfo(null, avatarUrl);
+
+    // 如果需要永久保存，取消下面的注释：
+    /*
     wx.showLoading({ title: '上传中...' });
 
     // 上传头像到云存储
@@ -73,17 +81,15 @@ Page({
       filePath: avatarUrl,
       success: (res) => {
         const cloudAvatarUrl = res.fileID;
-
-        // 保存到云数据库
         this.saveUserInfo(null, cloudAvatarUrl);
       },
       fail: (error) => {
         console.error('上传头像失败:', error);
-
         // 上传失败，使用临时路径
         this.saveUserInfo(null, avatarUrl);
       }
     });
+    */
   },
 
   // 昵称输入完成
@@ -100,6 +106,11 @@ Page({
     const currentUserInfo = storage.getUserInfo() || {};
     const userId = wxAuth.getUserId();
 
+    console.log('保存用户信息 - 当前:', currentUserInfo);
+    console.log('保存用户信息 - userId:', userId);
+    console.log('保存用户信息 - nickname:', nickname);
+    console.log('保存用户信息 - avatarUrl:', avatarUrl);
+
     // 更新用户信息
     const newUserInfo = {
       ...currentUserInfo,
@@ -114,18 +125,25 @@ Page({
       newUserInfo.avatar = avatarUrl;
     }
 
+    console.log('保存用户信息 - 新信息:', newUserInfo);
+
     // 保存到本地
     storage.setUserInfo(newUserInfo);
+    console.log('✓ 已保存到本地存储');
 
     // 保存到云数据库
+    wx.showLoading({ title: '保存中...' });
+
     wx.cloud.callFunction({
       name: 'getUserInfo',
       data: {
         nickName: newUserInfo.nickname || '',
         avatarUrl: newUserInfo.avatar || ''
       },
-      success: () => {
+      success: (result) => {
         wx.hideLoading();
+        console.log('✓ 云函数调用成功:', result);
+
         wx.showToast({
           title: '保存成功',
           icon: 'success'
@@ -136,11 +154,16 @@ Page({
       },
       fail: (error) => {
         wx.hideLoading();
-        console.error('保存失败:', error);
+        console.error('❌ 云函数调用失败:', error);
+
         wx.showToast({
-          title: '保存失败',
-          icon: 'none'
+          title: '保存失败: ' + error.errMsg,
+          icon: 'none',
+          duration: 3000
         });
+
+        // 即使云函数失败，本地已保存，也刷新显示
+        this.loadUserInfo();
       }
     });
   },
