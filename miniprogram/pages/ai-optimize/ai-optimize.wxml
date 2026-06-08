@@ -1,41 +1,80 @@
 <!--pages/ai-optimize/ai-optimize.wxml-->
 <view class="ai-container">
-  <!-- 顶部标题 -->
-  <view class="header-bar">
-    <text class="page-title">AI 智能优化</text>
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <text class="nav-icon" bindtap="handleBack">‹</text>
+    <text class="nav-title">AI 智能优化</text>
+    <view></view>
   </view>
 
-  <!-- 评分卡片 -->
-  <view class="score-card">
-    <text class="score-label">简历诊断分数</text>
-    <view class="score-display">
-      <text class="score-number">82</text>
-      <text class="score-total">/ 100 · 良好</text>
-    </view>
-    <view class="progress-bar">
-      <view class="progress-fill" style="width: 82%;"></view>
-    </view>
+  <!-- 分析中状态 -->
+  <view class="analyzing" wx:if="{{analyzing}}">
+    <view class="analyzing-animation">🤖</view>
+    <text class="analyzing-text">AI 正在分析你的简历...</text>
+    <text class="analyzing-desc">马上就好</text>
   </view>
 
-  <!-- 优化建议 -->
-  <view class="suggestions-section">
-    <view class="section-header">
-      <text class="section-title">优化建议</text>
-      <text class="chip-coral">3 条</text>
-    </view>
-
-    <view class="suggestion-card" wx:for="{{suggestions}}" wx:key="id">
-      <text class="suggestion-icon">{{item.icon}}</text>
-      <view class="suggestion-content">
-        <text class="suggestion-title">{{item.title}}</text>
-        <text class="suggestion-desc">{{item.desc}}</text>
+  <!-- 分析结果 -->
+  <view wx:else>
+    <!-- 评分卡片 -->
+    <view class="score-card">
+      <text class="score-label">简历诊断分数</text>
+      <view class="score-display">
+        <text class="score-number">{{suggestions.length > 0 ? 75 : 90}}</text>
+        <text class="score-total">/ 100</text>
       </view>
-      <text class="chip" bindtap="applySuggestion" data-id="{{item.id}}">应用</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{suggestions.length > 0 ? 75 : 90}}%;"></view>
+      </view>
+      <text class="score-tip">{{suggestions.length > 0 ? '还有提升空间' : '表现优秀'}}</text>
+    </view>
+
+    <!-- 优化建议 -->
+    <view class="suggestions-section">
+      <view class="section-header">
+        <text class="section-title">优化建议</text>
+        <text class="suggestion-count">{{suggestions.length}} 条</text>
+      </view>
+
+      <!-- 建议列表 -->
+      <view class="suggestion-list" wx:if="{{suggestions.length > 0}}">
+        <view class="suggestion-card" wx:for="{{suggestions}}" wx:key="id">
+          <view class="suggestion-header">
+            <text class="suggestion-icon">{{item.icon}}</text>
+            <view class="suggestion-info">
+              <text class="suggestion-title">{{item.title}}</text>
+              <text class="suggestion-desc">{{item.desc}}</text>
+            </view>
+          </view>
+
+          <view class="suggestion-actions">
+            <button class="btn-detail" bindtap="viewDetail" data-id="{{item.id}}" wx:if="{{item.type !== 'tip'}}">
+              查看详情
+            </button>
+            <button
+              class="btn-apply {{appliedSuggestions.indexOf(item.id) >= 0 ? 'applied' : ''}}"
+              bindtap="applySuggestion"
+              data-id="{{item.id}}"
+              disabled="{{item.type === 'tip' || appliedSuggestions.indexOf(item.id) >= 0}}"
+            >
+              {{appliedSuggestions.indexOf(item.id) >= 0 ? '已应用' : (item.type === 'tip' ? '提示' : '应用')}}
+            </button>
+          </view>
+        </view>
+      </view>
+
+      <!-- 无建议状态 -->
+      <view class="no-suggestions" wx:else>
+        <text class="no-suggestions-icon">🎉</text>
+        <text class="no-suggestions-title">简历很完善！</text>
+        <text class="no-suggestions-desc">暂时没有需要优化的地方</text>
+      </view>
     </view>
   </view>
 
-  <!-- 底部按钮 -->
-  <view class="bottom-bar">
-    <view class="btn-primary" bindtap="applyAll">一键采纳全部建议</view>
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar" wx:if="{{!analyzing && suggestions.length > 0}}">
+    <button class="btn-secondary" bindtap="handleBack">返回编辑</button>
+    <button class="btn-primary" bindtap="applyAll">一键采纳全部</button>
   </view>
 </view>
