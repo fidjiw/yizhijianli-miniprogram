@@ -21,12 +21,15 @@ Page({
     const userInfo = storage.getUserInfo();
     const userId = wxAuth.getUserId();
 
-    if (userInfo && userInfo.nickname) {
-      // 有真实用户信息
+    console.log('加载用户信息 - userInfo:', userInfo);
+    console.log('加载用户信息 - userId:', userId);
+
+    if (userInfo) {
+      // 有用户信息
       this.setData({
         userInfo: {
           id: userId || '未登录',
-          nickname: userInfo.nickname,
+          nickname: userInfo.nickname || '点击输入昵称',
           avatar: userInfo.avatar || '',
           vip: false,
           aiCount: 12,
@@ -34,12 +37,13 @@ Page({
           exportCount: 8
         }
       });
+      console.log('页面显示的用户信息:', this.data.userInfo);
     } else {
-      // 没有用户信息，显示默认或提示授权
+      // 没有用户信息，显示默认
       this.setData({
         userInfo: {
           id: userId || '未登录',
-          nickname: '点击授权获取昵称',
+          nickname: '点击输入昵称',
           avatar: '',
           vip: false,
           aiCount: 0,
@@ -96,8 +100,15 @@ Page({
   onNicknameBlur(e) {
     const nickname = e.detail.value;
 
-    if (nickname && nickname.trim()) {
+    console.log('昵称输入完成:', nickname);
+
+    if (nickname && nickname.trim() && nickname.trim() !== '微信用户') {
       this.saveUserInfo(nickname.trim(), null);
+    } else {
+      wx.showToast({
+        title: '请输入昵称',
+        icon: 'none'
+      });
     }
   },
 

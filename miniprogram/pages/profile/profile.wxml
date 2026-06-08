@@ -5,7 +5,8 @@
     <view class="user-info">
       <!-- 使用新的头像选择组件 -->
       <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
-        <image class="user-avatar" src="{{userInfo.avatar || '/assets/images/default-avatar.png'}}" mode="aspectFill"></image>
+        <image class="user-avatar" src="{{userInfo.avatar}}" mode="aspectFill" wx:if="{{userInfo.avatar}}"></image>
+        <view class="avatar-placeholder" wx:else>📷</view>
       </button>
       <view class="user-detail">
         <!-- 改为普通输入框，让用户手动输入昵称 -->
