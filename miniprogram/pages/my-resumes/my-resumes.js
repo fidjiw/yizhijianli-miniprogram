@@ -2,6 +2,16 @@
 const db = require('../../utils/db');
 const wxAuth = require('../../utils/wx-auth');
 
+// 模板名称映射
+const TEMPLATE_NAMES = {
+  1: '清新简约',
+  2: '活力橙调',
+  3: '商务蓝调',
+  4: '紫调创意',
+  5: '极简黑白',
+  6: '活力青春'
+};
+
 Page({
   data: {
     resumes: [],
@@ -43,19 +53,16 @@ Page({
 
     db.getUserResumes()
       .then(resumes => {
-        // 为每份简历添加模板预览图
-        const resumesWithPreview = resumes.map(resume => ({
+        // 为每份简历添加模板名称
+        const resumesWithTemplate = resumes.map(resume => ({
           ...resume,
-          // 如果简历有 templateId，使用对应模板的预览图
-          preview: resume.templateId
-            ? `/assets/images/templates/template-${resume.templateId}.png`
-            : ''
+          templateName: TEMPLATE_NAMES[resume.templateId || 1] || '清新简约'
         }));
 
         this.setData({
-          resumes: resumesWithPreview,
+          resumes: resumesWithTemplate,
           loading: false,
-          empty: resumesWithPreview.length === 0
+          empty: resumesWithTemplate.length === 0
         });
       })
       .catch(err => {

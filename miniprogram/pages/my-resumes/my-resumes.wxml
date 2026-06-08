@@ -35,7 +35,10 @@
         <view class="resume-info" bindtap="handleResumeClick" data-id="{{item._id}}">
           <text class="resume-title">{{item.name || '未命名简历'}}</text>
           <text class="resume-position">{{item.position || '职位未设置'}}</text>
-          <text class="resume-time">更新于 {{item.updatedAt}}</text>
+          <view class="resume-meta">
+            <text class="resume-template">{{item.templateName || '清新简约'}}</text>
+            <text class="resume-time">更新于 {{item.updatedAt}}</text>
+          </view>
         </view>
 
         <!-- 操作按钮 -->

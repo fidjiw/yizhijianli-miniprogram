@@ -157,6 +157,27 @@
   font-weight: 600;
 }
 
+.resume-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  font-size: 24rpx;
+}
+
+.resume-template {
+  color: #0FB9A6;
+  background: #E6FBF7;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.resume-time {
+  font-size: 24rpx;
+  color: #8F9BA8;
+}
+
 .resume-time {
   font-size: 24rpx;
   color: #8F9BA8;
