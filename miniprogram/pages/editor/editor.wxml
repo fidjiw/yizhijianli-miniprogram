@@ -4,58 +4,186 @@
   <view class="nav-bar">
     <text class="nav-icon" bindtap="handleBack">‹</text>
     <text class="nav-title">编辑简历</text>
-    <text class="chip" bindtap="handlePreview">预览</text>
+    <view class="nav-actions">
+      <text class="save-status" wx:if="{{lastSaved}}">{{lastSaved}} 已保存</text>
+      <button class="btn-preview" bindtap="handlePreview">预览</button>
+    </view>
   </view>
 
   <!-- 模块tabs -->
   <scroll-view class="tabs-scroll" scroll-x>
     <view class="tabs">
-      <text class="chip {{activeTab === 'basic' ? '' : 'chip-gray'}}" bindtap="switchTab" data-tab="basic">基本信息</text>
-      <text class="chip chip-gray" bindtap="switchTab" data-tab="education">教育</text>
-      <text class="chip chip-gray" bindtap="switchTab" data-tab="experience">经历</text>
-      <text class="chip chip-gray" bindtap="switchTab" data-tab="skills">技能</text>
+      <text class="tab-item {{activeTab === 'basic' ? 'active' : ''}}" bindtap="switchTab" data-tab="basic">基本信息</text>
+      <text class="tab-item {{activeTab === 'education' ? 'active' : ''}}" bindtap="switchTab" data-tab="education">教育经历</text>
+      <text class="tab-item {{activeTab === 'experience' ? 'active' : ''}}" bindtap="switchTab" data-tab="experience">工作经历</text>
+      <text class="tab-item {{activeTab === 'skills' ? 'active' : ''}}" bindtap="switchTab" data-tab="skills">技能特长</text>
     </view>
   </scroll-view>
 
   <!-- 表单内容 -->
   <scroll-view class="form-content" scroll-y>
-    <view class="form-card" wx:if="{{activeTab === 'basic'}}">
-      <view class="form-item">
-        <text class="form-label">姓名</text>
-        <input class="form-input active" value="{{resumeData.name}}" placeholder="请输入姓名" />
-      </view>
 
-      <view class="form-item">
-        <text class="form-label">求职意向</text>
-        <input class="form-input" value="{{resumeData.position}}" placeholder="请输入求职意向" />
-      </view>
-
-      <view class="form-row">
-        <view class="form-item half">
-          <text class="form-label">手机</text>
-          <input class="form-input" value="{{resumeData.phone}}" placeholder="手机号" />
+    <!-- 基本信息 -->
+    <view wx:if="{{activeTab === 'basic'}}">
+      <view class="form-section">
+        <view class="form-item">
+          <text class="form-label">姓名 *</text>
+          <input class="form-input" value="{{resumeData.name}}" placeholder="请输入姓名" bindinput="onNameInput" />
         </view>
-        <view class="form-item half">
+
+        <view class="form-item">
+          <text class="form-label">求职意向 *</text>
+          <input class="form-input" value="{{resumeData.position}}" placeholder="如：产品经理" bindinput="onPositionInput" />
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">手机号</text>
+          <input class="form-input" type="number" value="{{resumeData.phone}}" placeholder="请输入手机号" bindinput="onPhoneInput" />
+        </view>
+
+        <view class="form-item">
           <text class="form-label">邮箱</text>
-          <input class="form-input" value="{{resumeData.email}}" placeholder="邮箱" />
+          <input class="form-input" type="text" value="{{resumeData.email}}" placeholder="请输入邮箱" bindinput="onEmailInput" />
         </view>
+
+        <view class="form-item">
+          <text class="form-label">出生日期</text>
+          <input class="form-input" type="text" value="{{resumeData.birthday}}" placeholder="如：1990-01-01" bindinput="onBirthdayInput" />
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">居住地</text>
+          <input class="form-input" value="{{resumeData.location}}" placeholder="如：北京" bindinput="onLocationInput" />
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">个人简介</text>
+          <textarea class="form-textarea" value="{{resumeData.summary}}" placeholder="简要介绍你的优势和特点" bindinput="onSummaryInput" />
+        </view>
+      </view>
+    </view>
+
+    <!-- 教育经历 -->
+    <view wx:if="{{activeTab === 'education'}}">
+      <view class="section-header">
+        <text class="section-title">教育经历</text>
+        <button class="btn-add" bindtap="addEducation">+ 添加</button>
+      </view>
+
+      <view class="form-section" wx:for="{{resumeData.education}}" wx:key="index">
+        <view class="section-delete" bindtap="removeEducation" data-index="{{index}}">删除</view>
+
+        <view class="form-item">
+          <text class="form-label">学校</text>
+          <input class="form-input" value="{{item.school}}" placeholder="学校名称" bindinput="onEducationInput" data-index="{{index}}" data-field="school" />
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">专业</text>
+          <input class="form-input" value="{{item.major}}" placeholder="专业名称" bindinput="onEducationInput" data-index="{{index}}" data-field="major" />
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">学历</text>
+          <input class="form-input" value="{{item.degree}}" placeholder="如：本科" bindinput="onEducationInput" data-index="{{index}}" data-field="degree" />
+        </view>
+
+        <view class="form-row">
+          <view class="form-item half">
+            <text class="form-label">开始时间</text>
+            <input class="form-input" value="{{item.startDate}}" placeholder="2018-09" bindinput="onEducationInput" data-index="{{index}}" data-field="startDate" />
+          </view>
+          <view class="form-item half">
+            <text class="form-label">结束时间</text>
+            <input class="form-input" value="{{item.endDate}}" placeholder="2022-06" bindinput="onEducationInput" data-index="{{index}}" data-field="endDate" />
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-hint" wx:if="{{resumeData.education.length === 0}}">
+        <text>还没有添加教育经历</text>
+        <button class="btn-add-large" bindtap="addEducation">+ 添加教育经历</button>
+      </view>
+    </view>
+
+    <!-- 工作经历 -->
+    <view wx:if="{{activeTab === 'experience'}}">
+      <view class="section-header">
+        <text class="section-title">工作经历</text>
+        <button class="btn-add" bindtap="addExperience">+ 添加</button>
+      </view>
+
+      <view class="form-section" wx:for="{{resumeData.experience}}" wx:key="index">
+        <view class="section-delete" bindtap="removeExperience" data-index="{{index}}">删除</view>
+
+        <view class="form-item">
+          <text class="form-label">公司</text>
+          <input class="form-input" value="{{item.company}}" placeholder="公司名称" bindinput="onExperienceInput" data-index="{{index}}" data-field="company" />
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">职位</text>
+          <input class="form-input" value="{{item.position}}" placeholder="职位名称" bindinput="onExperienceInput" data-index="{{index}}" data-field="position" />
+        </view>
+
+        <view class="form-row">
+          <view class="form-item half">
+            <text class="form-label">开始时间</text>
+            <input class="form-input" value="{{item.startDate}}" placeholder="2020-01" bindinput="onExperienceInput" data-index="{{index}}" data-field="startDate" />
+          </view>
+          <view class="form-item half">
+            <text class="form-label">结束时间</text>
+            <input class="form-input" value="{{item.endDate}}" placeholder="至今" bindinput="onExperienceInput" data-index="{{index}}" data-field="endDate" />
+          </view>
+        </view>
+
+        <view class="form-item">
+          <text class="form-label">工作描述</text>
+          <textarea class="form-textarea" value="{{item.description}}" placeholder="描述你的工作内容和成果" bindinput="onExperienceInput" data-index="{{index}}" data-field="description" />
+        </view>
+      </view>
+
+      <view class="empty-hint" wx:if="{{resumeData.experience.length === 0}}">
+        <text>还没有添加工作经历</text>
+        <button class="btn-add-large" bindtap="addExperience">+ 添加工作经历</button>
+      </view>
+    </view>
+
+    <!-- 技能特长 -->
+    <view wx:if="{{activeTab === 'skills'}}">
+      <view class="section-header">
+        <text class="section-title">技能特长</text>
+        <button class="btn-add" bindtap="addSkill">+ 添加</button>
+      </view>
+
+      <view class="skill-list">
+        <view class="skill-item" wx:for="{{resumeData.skills}}" wx:key="index">
+          <input class="skill-input" value="{{item.name}}" placeholder="技能名称" bindinput="onSkillInput" data-index="{{index}}" data-field="name" />
+          <text class="skill-delete" bindtap="removeSkill" data-index="{{index}}">×</text>
+        </view>
+      </view>
+
+      <view class="empty-hint" wx:if="{{resumeData.skills.length === 0}}">
+        <text>还没有添加技能</text>
+        <button class="btn-add-large" bindtap="addSkill">+ 添加技能</button>
       </view>
     </view>
 
     <!-- AI辅助卡片 -->
-    <view class="ai-assist-card" bindtap="handleAIGenerate">
+    <view class="ai-assist-card" bindtap="handleAIGenerate" wx:if="{{resumeId}}">
       <text class="ai-icon">🤖</text>
       <view class="ai-content">
-        <text class="ai-title">个人简介还空着，</text>
-        <text class="ai-desc">让 AI 帮你写一段？</text>
+        <text class="ai-title">使用 AI 优化简历</text>
+        <text class="ai-desc">让 AI 帮你润色内容</text>
       </view>
-      <text class="ai-btn">生成</text>
+      <text class="ai-btn">立即优化</text>
     </view>
+
   </scroll-view>
 
   <!-- 底部操作栏 -->
   <view class="bottom-bar">
-    <view class="btn-secondary" bindtap="handleSaveDraft">保存草稿</view>
-    <view class="btn-primary" bindtap="handleNext">下一步</view>
+    <button class="btn-secondary" bindtap="handleSave">保存</button>
+    <button class="btn-primary" bindtap="handleNext">{{activeTab === 'skills' ? '完成' : '下一步'}}</button>
   </view>
 </view>
