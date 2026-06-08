@@ -87,12 +87,15 @@ Page({
   showAuthorizationTip() {
     wx.showModal({
       title: '完善资料',
-      content: '授权获取头像和昵称，可以让你的简历更完整',
-      confirmText: '授权',
+      content: '登录成功！请前往个人中心设置头像和昵称',
+      confirmText: '去设置',
       cancelText: '稍后',
       success: (res) => {
         if (res.confirm) {
-          this.handleAuthorize();
+          // 跳转到个人中心
+          wx.switchTab({
+            url: '/pages/profile/profile'
+          });
         } else {
           // 用户选择稍后，跳转到首页
           setTimeout(() => {
@@ -103,41 +106,6 @@ Page({
         }
       }
     });
-  },
-
-  // 处理用户授权
-  handleAuthorize() {
-    helpers.showLoading('授权中...');
-
-    wxAuth.authorizeUserProfile()
-      .then((userInfo) => {
-        wx.hideLoading();
-        helpers.showSuccess('授权成功');
-
-        // 更新页面显示
-        this.setData({
-          userInfo: userInfo
-        });
-
-        // 延迟跳转
-        setTimeout(() => {
-          wx.switchTab({
-            url: '/pages/home/home'
-          });
-        }, 1500);
-      })
-      .catch((error) => {
-        wx.hideLoading();
-        console.error('授权失败:', error);
-        helpers.showError('授权失败：' + error);
-
-        // 授权失败后也跳转到首页
-        setTimeout(() => {
-          wx.switchTab({
-            url: '/pages/home/home'
-          });
-        }, 1500);
-      });
   },
 
   // 显示用户协议

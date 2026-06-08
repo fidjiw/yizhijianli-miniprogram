@@ -8,13 +8,13 @@
         <image class="user-avatar" src="{{userInfo.avatar || '/assets/images/default-avatar.png'}}" mode="aspectFill"></image>
       </button>
       <view class="user-detail">
-        <!-- 使用新的昵称输入组件 -->
+        <!-- 改为普通输入框，让用户手动输入昵称 -->
         <input
-          type="nickname"
           class="user-name-input"
           value="{{userInfo.nickname}}"
           placeholder="点击输入昵称"
           bindblur="onNicknameBlur"
+          maxlength="20"
         />
         <text class="user-id">ID: {{userInfo.id}} · {{userInfo.vip ? '会员' : '普通用户'}}</text>
       </view>
