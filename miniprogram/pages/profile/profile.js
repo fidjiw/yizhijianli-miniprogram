@@ -195,5 +195,45 @@ Page({
       title: '功能开发中',
       icon: 'none'
     });
+  },
+
+  // 退出登录
+  handleLogout() {
+    wx.showModal({
+      title: '确认退出',
+      content: '退出登录后需要重新登录才能使用',
+      confirmText: '退出',
+      cancelText: '取消',
+      confirmColor: '#FF4444',
+      success: (res) => {
+        if (res.confirm) {
+          wx.showLoading({ title: '退出中...' });
+
+          wxAuth.logout()
+            .then(() => {
+              wx.hideLoading();
+              wx.showToast({
+                title: '已退出登录',
+                icon: 'success'
+              });
+
+              // 跳转到欢迎页
+              setTimeout(() => {
+                wx.reLaunch({
+                  url: '/pages/welcome/welcome'
+                });
+              }, 1500);
+            })
+            .catch((error) => {
+              wx.hideLoading();
+              console.error('退出失败:', error);
+              wx.showToast({
+                title: '退出失败',
+                icon: 'none'
+              });
+            });
+        }
+      }
+    });
   }
 });

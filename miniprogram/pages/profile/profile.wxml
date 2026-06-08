@@ -66,4 +66,11 @@
       <text class="menu-arrow">›</text>
     </view>
   </view>
+
+  <!-- 退出登录按钮 -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="handleLogout">
+      退出登录
+    </button>
+  </view>
 </view>
