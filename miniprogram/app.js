@@ -7,6 +7,11 @@ App({
   },
 
   onLaunch() {
+    // 初始化微信云开发
+    wx.cloud.init({
+      env: 'your-cloud-env-id'  // 替换为你的云环境 ID
+    });
+
     // 检查登录状态
     const token = wx.getStorageSync('token');
     if (token) {
@@ -59,18 +64,38 @@ App({
     ];
   },
 
-  // 微信登录
+  // 微信登录（使用云开发）
   login() {
     return new Promise((resolve, reject) => {
       wx.login({
         success: (res) => {
           if (res.code) {
-            // TODO: 调用后端接口，用 code 换取 token
-            wx.setStorageSync('token', 'mock_token_' + res.code);
-            this.getUserInfo();
-            resolve();
+            // 调用云函数进行登录
+            wx.cloud.callFunction({
+              name: 'login',
+              data: {
+                code: res.code
+              },
+              success: (result) => {
+                if (result.result.code === 0) {
+                  // 登录成功，保存 token
+                  const { token, userId, loginTime } = result.result.data;
+                  wx.setStorageSync('token', token);
+                  wx.setStorageSync('userId', userId);
+                  wx.setStorageSync('loginTime', loginTime);
+                  this.getUserInfo();
+                  resolve(result.result.data);
+                } else {
+                  reject(result.result.msg || '登录失败');
+                }
+              },
+              fail: (error) => {
+                console.error('云函数调用失败:', error);
+                reject('云函数调用失败');
+              }
+            });
           } else {
-            reject('登录失败');
+            reject('获取登录 code 失败');
           }
         },
         fail: reject
@@ -78,18 +103,48 @@ App({
     });
   },
 
-  // 获取用户授权信息
+  // 获取用户授权信息（使用云开发保存）
   getUserProfile() {
     return new Promise((resolve, reject) => {
       wx.getUserProfile({
         desc: '用于完善用户资料',
         success: (res) => {
-          this.globalData.userInfo = {
-            ...this.globalData.userInfo,
-            nickname: res.userInfo.nickName,
-            avatar: res.userInfo.avatarUrl
-          };
-          resolve(res.userInfo);
+          const userInfo = res.userInfo;
+
+          // 调用云函数保存用户信息
+          wx.cloud.callFunction({
+            name: 'getUserInfo',
+            data: {
+              nickName: userInfo.nickName,
+              avatarUrl: userInfo.avatarUrl
+            },
+            success: (result) => {
+              if (result.result.code === 0) {
+                // 本地保存用户信息
+                this.globalData.userInfo = {
+                  ...this.globalData.userInfo,
+                  nickname: userInfo.nickName,
+                  avatar: userInfo.avatarUrl,
+                  userId: result.result.data.userId
+                };
+
+                // 保存到本地存储
+                wx.setStorageSync('userInfo', {
+                  nickname: userInfo.nickName,
+                  avatar: userInfo.avatarUrl,
+                  userId: result.result.data.userId
+                });
+
+                resolve(userInfo);
+              } else {
+                reject(result.result.msg || '保存用户信息失败');
+              }
+            },
+            fail: (error) => {
+              console.error('保存用户信息失败:', error);
+              reject('保存用户信息失败');
+            }
+          });
         },
         fail: reject
       });
