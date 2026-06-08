@@ -1,33 +1,99 @@
 /* pages/my-resumes/my-resumes.wxss */
+
 .my-resumes-container {
   min-height: 100vh;
-  padding: 32rpx 36rpx 100rpx;
+  padding: 32rpx;
+  padding-bottom: 120rpx;
+  background: #F4F8F9;
 }
 
+/* 加载状态 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #8F9BA8;
+}
+
+/* 头部 */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20rpx;
+  margin-bottom: 32rpx;
 }
 
 .page-title {
   font-size: 40rpx;
   font-weight: 800;
+  color: #1E3240;
 }
 
 .create-btn {
-  font-size: 22rpx;
-  color: #0FB9A6;
-  font-weight: 700;
+  background: linear-gradient(135deg, #2DD4BF, #0FB9A6);
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 600;
+  padding: 16rpx 32rpx;
+  border-radius: 40rpx;
+  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(15, 185, 166, 0.3);
 }
 
-.filter-tabs {
+.create-btn::after {
+  border: none;
+}
+
+/* 空状态 */
+.empty-state {
   display: flex;
-  gap: 16rpx;
-  margin-bottom: 28rpx;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+  text-align: center;
 }
 
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 32rpx;
+  opacity: 0.5;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1E3240;
+  margin-bottom: 16rpx;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #8F9BA8;
+  margin-bottom: 48rpx;
+}
+
+.empty-btn {
+  background: linear-gradient(135deg, #2DD4BF, #0FB9A6);
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+  padding: 24rpx 64rpx;
+  border-radius: 48rpx;
+  border: none;
+  box-shadow: 0 12rpx 32rpx rgba(15, 185, 166, 0.3);
+}
+
+.empty-btn::after {
+  border: none;
+}
+
+/* 简历列表 */
 .resume-list {
   display: flex;
   flex-direction: column;
@@ -36,42 +102,91 @@
 
 .resume-card {
   background: #fff;
-  border-radius: 32rpx;
+  border-radius: 24rpx;
   padding: 24rpx;
   display: flex;
-  gap: 24rpx;
   align-items: center;
-  box-shadow: 0 8rpx 28rpx rgba(30, 50, 60, 0.05);
+  gap: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(30, 50, 60, 0.06);
 }
 
+/* 缩略图 */
 .resume-thumbnail {
-  width: 100rpx;
-  height: 132rpx;
-  border-radius: 16rpx;
-  background: linear-gradient(160deg, #E6FBF7, #fff);
-  border: 1px solid #EEF1F4;
+  width: 120rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  background: linear-gradient(135deg, #EEF8F7, #E0F2F1);
   flex-shrink: 0;
+  overflow: hidden;
 }
 
+.thumbnail-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumbnail-icon {
+  font-size: 56rpx;
+  opacity: 0.5;
+}
+
+/* 简历信息 */
 .resume-info {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 8rpx;
+  min-width: 0;
 }
 
 .resume-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1E3240;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resume-position {
   font-size: 26rpx;
+  color: #0FB9A6;
   font-weight: 600;
-  margin-bottom: 8rpx;
 }
 
 .resume-time {
-  font-size: 22rpx;
-  color: #6B7787;
-  margin-bottom: 12rpx;
+  font-size: 24rpx;
+  color: #8F9BA8;
 }
 
-.resume-more {
-  color: #C4CCD4;
-  font-size: 40rpx;
+/* 操作按钮 */
+.resume-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  width: 56rpx;
+  height: 56rpx;
+  background: #F4F8F9;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  line-height: 1;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.action-icon {
+  font-size: 28rpx;
 }

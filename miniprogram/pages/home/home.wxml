@@ -1,16 +1,5 @@
 <!--pages/home/home.wxml-->
 <view class="home-container">
-  <!-- 顶部问候 -->
-  <view class="header">
-    <view class="greeting">
-      <view class="greeting-text">
-        <text class="greeting-title">嗨，{{userInfo.nickname}} 👋</text>
-        <text class="greeting-desc">今天也要闪闪发光呀</text>
-      </view>
-      <image class="avatar" src="{{userInfo.avatar || '/assets/images/default-avatar.png'}}" mode="aspectFill"></image>
-    </view>
-  </view>
-
   <!-- 新建简历卡片 -->
   <view class="create-card" bindtap="handleCreateResume">
     <view class="create-content">

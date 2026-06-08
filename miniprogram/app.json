@@ -7,7 +7,9 @@
     "pages/ai-optimize/ai-optimize",
     "pages/preview/preview",
     "pages/my-resumes/my-resumes",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/agreement/agreement",
+    "pages/privacy/privacy"
   ],
   "window": {
     "backgroundTextStyle": "light",

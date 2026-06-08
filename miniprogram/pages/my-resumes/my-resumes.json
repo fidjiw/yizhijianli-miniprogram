@@ -1,1 +1,6 @@
-{"navigationBarTitleText": "我的简历", "usingComponents": {}}
+{
+  "navigationBarTitleText": "我的简历",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F4F8F9",
+  "usingComponents": {}
+}

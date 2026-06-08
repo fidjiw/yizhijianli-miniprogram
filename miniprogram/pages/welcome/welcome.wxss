@@ -42,7 +42,7 @@
 /* 特性卡片 */
 .features {
   position: fixed;
-  bottom: 240rpx;
+  bottom: 320rpx;
   left: 60rpx;
   right: 60rpx;
   display: flex;
