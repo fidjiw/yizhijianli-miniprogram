@@ -68,6 +68,8 @@ const wxAuth = {
 
   /**
    * 完整登录流程
+   * 第一步：获取 code 并交换 token（自动）
+   * 第二步：获取用户信息（需要用户手动授权）
    */
   login() {
     return new Promise(async (resolve, reject) => {
@@ -76,7 +78,7 @@ const wxAuth = {
         const code = await this._getCode();
         console.log('✓ 获取 code 成功');
 
-        // 步骤2：用 code 换取 token
+        // 步骤2：用 code 换取 token（调用云函数）
         const tokenResult = await this._exchangeToken(code);
         const token = tokenResult.token;
         const userId = tokenResult.userId;
@@ -92,11 +94,35 @@ const wxAuth = {
 
         console.log('✓ Token 交换成功');
 
-        // 步骤3：获取用户信息（需要用户授权）
+        // 步骤3：登录成功，返回
+        resolve({
+          token,
+          userId
+        });
+
+        // 步骤4：询问用户是否授权头像和昵称（可选，不阻塞登录）
+        // 用户可以在授权后调用 authorizeUserProfile() 手动授权
+      } catch (error) {
+        console.error('登录失败:', error);
+        reject(error);
+      }
+    });
+  },
+
+  /**
+   * 单独的用户授权方法
+   * 由用户主动点击调用（比如在登录后的设置页面）
+   */
+  authorizeUserProfile() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // 步骤1：获取用户信息（需要用户点击授权）
         const userInfo = await this._getUserProfile();
         console.log('✓ 获取用户信息成功');
 
-        // 步骤4：保存用户信息到云数据库
+        const userId = wx.getStorageSync('userId');
+
+        // 步骤2：保存用户信息到云数据库
         await new Promise((resolve, reject) => {
           wx.cloud.callFunction({
             name: 'getUserInfo',
@@ -126,12 +152,12 @@ const wxAuth = {
         });
 
         resolve({
-          token,
-          userId,
-          userInfo
+          nickname: userInfo.nickName,
+          avatar: userInfo.avatarUrl,
+          userId: userId
         });
       } catch (error) {
-        console.error('登录失败:', error);
+        console.error('授权失败:', error);
         reject(error);
       }
     });
