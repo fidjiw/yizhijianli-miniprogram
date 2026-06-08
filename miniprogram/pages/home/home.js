@@ -23,17 +23,26 @@ Page({
   loadData() {
     this.setData(pageState.setLoading(this.data));
 
-    // 加载用户信息
-    const userInfo = app.globalData.userInfo || storage.getUserInfo() || {
-      nickname: 'Mia',
-      avatar: ''
-    };
+    // 加载用户信息 - 从本地存储获取真实数据
+    const userInfo = storage.getUserInfo();
+
+    if (userInfo && userInfo.nickname) {
+      // 有真实用户信息
+      this.setData({ userInfo });
+    } else {
+      // 没有用户信息，显示默认
+      this.setData({
+        userInfo: {
+          nickname: '未登录',
+          avatar: ''
+        }
+      });
+    }
 
     // 加载简历列表
     this.loadResumeList();
 
     this.setData({
-      userInfo,
       ...pageState.setSuccess(this.data)
     });
   },
