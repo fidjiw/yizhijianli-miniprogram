@@ -52,47 +52,107 @@ Page({
 
   // 点击头像授权
   handleAvatarTap() {
-    const userInfo = storage.getUserInfo();
+    // 新版微信使用 open-type="chooseAvatar" 按钮，不需要这个方法了
+    wx.showToast({
+      title: '请点击头像选择',
+      icon: 'none'
+    });
+  },
 
-    // 如果没有昵称，提示授权
-    if (!userInfo || !userInfo.nickname) {
-      wx.showModal({
-        title: '完善资料',
-        content: '授权获取头像和昵称，让你的个人中心更完整',
-        confirmText: '授权',
-        cancelText: '取消',
-        success: (res) => {
-          if (res.confirm) {
-            this.authorizeUserInfo();
-          }
-        }
-      });
+  // 选择头像（新版API）
+  onChooseAvatar(e) {
+    const { avatarUrl } = e.detail;
+
+    wx.showLoading({ title: '上传中...' });
+
+    // 上传头像到云存储
+    const cloudPath = `avatars/${wxAuth.getUserId()}_${Date.now()}.jpg`;
+
+    wx.cloud.uploadFile({
+      cloudPath,
+      filePath: avatarUrl,
+      success: (res) => {
+        const cloudAvatarUrl = res.fileID;
+
+        // 保存到云数据库
+        this.saveUserInfo(null, cloudAvatarUrl);
+      },
+      fail: (error) => {
+        console.error('上传头像失败:', error);
+
+        // 上传失败，使用临时路径
+        this.saveUserInfo(null, avatarUrl);
+      }
+    });
+  },
+
+  // 昵称输入完成
+  onNicknameBlur(e) {
+    const nickname = e.detail.value;
+
+    if (nickname && nickname.trim()) {
+      this.saveUserInfo(nickname.trim(), null);
     }
   },
 
-  // 授权获取用户信息
-  authorizeUserInfo() {
-    wx.showLoading({ title: '授权中...' });
+  // 保存用户信息
+  saveUserInfo(nickname, avatarUrl) {
+    const currentUserInfo = storage.getUserInfo() || {};
+    const userId = wxAuth.getUserId();
 
-    wxAuth.authorizeUserProfile()
-      .then((userInfo) => {
+    // 更新用户信息
+    const newUserInfo = {
+      ...currentUserInfo,
+      userId: userId
+    };
+
+    if (nickname) {
+      newUserInfo.nickname = nickname;
+    }
+
+    if (avatarUrl) {
+      newUserInfo.avatar = avatarUrl;
+    }
+
+    // 保存到本地
+    storage.setUserInfo(newUserInfo);
+
+    // 保存到云数据库
+    wx.cloud.callFunction({
+      name: 'getUserInfo',
+      data: {
+        nickName: newUserInfo.nickname || '',
+        avatarUrl: newUserInfo.avatar || ''
+      },
+      success: () => {
         wx.hideLoading();
         wx.showToast({
-          title: '授权成功',
+          title: '保存成功',
           icon: 'success'
         });
 
-        // 重新加载用户信息
+        // 刷新显示
         this.loadUserInfo();
-      })
-      .catch((error) => {
+      },
+      fail: (error) => {
         wx.hideLoading();
-        console.error('授权失败:', error);
+        console.error('保存失败:', error);
         wx.showToast({
-          title: '授权失败',
+          title: '保存失败',
           icon: 'none'
         });
-      });
+      }
+    });
+  },
+
+  // 授权获取用户信息（废弃的方法，保留兼容）
+  authorizeUserInfo() {
+    wx.showModal({
+      title: '提示',
+      content: '请点击头像选择照片，点击昵称输入框修改昵称',
+      showCancel: false,
+      confirmText: '知道了'
+    });
   },
 
   // 跳转到会员页

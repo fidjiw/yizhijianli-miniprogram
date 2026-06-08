@@ -3,9 +3,19 @@
   <!-- 顶部用户信息卡片 -->
   <view class="user-header">
     <view class="user-info">
-      <image class="user-avatar" src="{{userInfo.avatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" bindtap="handleAvatarTap"></image>
+      <!-- 使用新的头像选择组件 -->
+      <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="user-avatar" src="{{userInfo.avatar || '/assets/images/default-avatar.png'}}" mode="aspectFill"></image>
+      </button>
       <view class="user-detail">
-        <text class="user-name">{{userInfo.nickname}}</text>
+        <!-- 使用新的昵称输入组件 -->
+        <input
+          type="nickname"
+          class="user-name-input"
+          value="{{userInfo.nickname}}"
+          placeholder="点击输入昵称"
+          bindblur="onNicknameBlur"
+        />
         <text class="user-id">ID: {{userInfo.id}} · {{userInfo.vip ? '会员' : '普通用户'}}</text>
       </view>
     </view>

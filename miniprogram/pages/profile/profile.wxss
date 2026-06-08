@@ -19,23 +19,53 @@
   margin-bottom: 32rpx;
 }
 
+.avatar-wrapper {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  line-height: 1;
+}
+
+.avatar-wrapper::after {
+  border: none;
+}
+
 .user-avatar {
   width: 116rpx;
   height: 116rpx;
   border-radius: 50%;
   border: 6rpx solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 16rpx 40rpx rgba(0, 0, 0, 0.15);
+  display: block;
 }
 
 .user-detail {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .user-name {
   font-size: 36rpx;
   font-weight: 800;
   margin-bottom: 8rpx;
+}
+
+.user-name-input {
+  font-size: 36rpx;
+  font-weight: 800;
+  margin-bottom: 8rpx;
+  color: #fff;
+  background: transparent;
+  border: none;
+  padding: 0;
+  height: auto;
+  line-height: 1.2;
+}
+
+.user-name-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .user-id {
