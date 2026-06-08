@@ -21,6 +21,7 @@
     "selectedColor": "#0FB9A6",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
+    "fontSize": "11px",
     "list": [
       {
         "pagePath": "pages/home/home",
