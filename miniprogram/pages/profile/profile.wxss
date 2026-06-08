@@ -1,15 +1,17 @@
 /* pages/profile/profile.wxss */
 .profile-container {
   min-height: 100vh;
+  padding: 0;
   padding-bottom: 120rpx;
+  background: #F4F8F9;
 }
 
 /* 用户信息头部 */
 .user-header {
-  padding: 56rpx 0 40rpx;
+  padding: 56rpx 0 40rpx 0;
   background: linear-gradient(135deg, #2DD4BF, #0FB9A6);
   color: #fff;
-  margin-bottom: 32rpx;
+  margin: 0;
 }
 
 /* 头像区域 - 居中 */
@@ -17,8 +19,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 16rpx;
   margin-bottom: 40rpx;
+  width: 100%;
 }
 
 .avatar-wrapper {
