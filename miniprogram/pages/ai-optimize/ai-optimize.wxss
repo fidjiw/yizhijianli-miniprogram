@@ -29,7 +29,7 @@
 }
 
 .score-label {
-  font-size: 26rpx;
+  font-size: 28rpx;
   font-weight: 700;
   opacity: 0.95;
   display: block;
@@ -83,7 +83,7 @@
 }
 
 .section-title {
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: 800;
 }
 
@@ -110,13 +110,13 @@
 }
 
 .suggestion-title {
-  font-size: 26rpx;
+  font-size: 28rpx;
   font-weight: 600;
   margin-bottom: 8rpx;
 }
 
 .suggestion-desc {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: #6B7787;
   line-height: 1.6;
 }
@@ -128,10 +128,13 @@
   right: 0;
   background: #fff;
   border-top: 1px solid #EEF1F4;
-  padding: 28rpx 36rpx;
+  padding: 20rpx 36rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
   box-shadow: 0 -8rpx 24rpx rgba(0, 0, 0, 0.04);
+  z-index: 100;
 }
 
 .bottom-bar .btn-primary {
   width: 100%;
+  box-sizing: border-box;
 }
