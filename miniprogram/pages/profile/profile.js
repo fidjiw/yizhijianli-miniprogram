@@ -100,9 +100,12 @@ Page({
 
   // 点击编辑昵称
   onEditNickname() {
+    const currentNickname = this.data.userInfo.nickname;
+
     this.setData({
       isEditingNickname: true,
-      editNickname: this.data.userInfo.nickname === '未设置昵称' ? '' : this.data.userInfo.nickname
+      // 如果是默认提示文字，输入框置空；否则显示当前昵称
+      editNickname: (currentNickname === '未设置昵称' || !currentNickname) ? '' : currentNickname
     });
   },
 
