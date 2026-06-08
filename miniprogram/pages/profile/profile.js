@@ -29,7 +29,7 @@ Page({
       this.setData({
         userInfo: {
           id: userId || '未登录',
-          nickname: userInfo.nickname || '点击输入昵称',
+          nickname: userInfo.nickname || '未设置昵称',
           avatar: userInfo.avatar || '',
           vip: false,
           aiCount: 12,
@@ -43,7 +43,7 @@ Page({
       this.setData({
         userInfo: {
           id: userId || '未登录',
-          nickname: '点击输入昵称',
+          nickname: '未设置昵称',
           avatar: '',
           vip: false,
           aiCount: 0,
