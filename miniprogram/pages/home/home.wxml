@@ -60,6 +60,3 @@
     </view>
   </view>
 </view>
-
-<!-- 隐藏的 Canvas，用于生成预览图 -->
-<canvas type="2d" id="preview-canvas" style="position: fixed; left: -9999px; top: -9999px; width: 300px; height: 400px;"></canvas>

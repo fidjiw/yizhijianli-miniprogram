@@ -1,7 +1,6 @@
 // pages/my-resumes/my-resumes.js
 const db = require('../../utils/db');
 const wxAuth = require('../../utils/wx-auth');
-const resumePreview = require('../../utils/resume-preview');
 
 Page({
   data: {
@@ -38,27 +37,26 @@ Page({
     }
   },
 
-  onReady() {
-    // 页面渲染完成后生成预览图
-    this.generatePreviews();
-  },
-
   // 加载简历列表
   loadResumes() {
     this.setData({ loading: true });
 
     db.getUserResumes()
       .then(resumes => {
-        this.setData({
-          resumes: resumes,
-          loading: false,
-          empty: resumes.length === 0
-        });
+        // 为每份简历添加模板预览图
+        const resumesWithPreview = resumes.map(resume => ({
+          ...resume,
+          // 如果简历有 templateId，使用对应模板的预览图
+          preview: resume.templateId
+            ? `/assets/images/templates/template-${resume.templateId}.png`
+            : ''
+        }));
 
-        // 加载完成后生成预览图
-        if (resumes.length > 0) {
-          this.generatePreviews();
-        }
+        this.setData({
+          resumes: resumesWithPreview,
+          loading: false,
+          empty: resumesWithPreview.length === 0
+        });
       })
       .catch(err => {
         console.error('加载简历列表失败:', err);
@@ -70,26 +68,6 @@ Page({
           title: '加载失败',
           icon: 'none'
         });
-      });
-  },
-
-  // 生成预览图
-  generatePreviews() {
-    const resumes = this.data.resumes;
-
-    if (!resumes || resumes.length === 0) {
-      return;
-    }
-
-    // 使用 Canvas 生成预览图
-    resumePreview.generateBatchPreviews(resumes)
-      .then(updatedList => {
-        this.setData({
-          resumes: updatedList
-        });
-      })
-      .catch(err => {
-        console.error('生成预览图失败:', err);
       });
   },
 

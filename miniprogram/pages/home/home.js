@@ -3,7 +3,6 @@ const app = getApp();
 const storage = require('../../utils/storage');
 const pageState = require('../../utils/page-state');
 const db = require('../../utils/db');
-const resumePreview = require('../../utils/resume-preview');
 
 Page({
   data: {
@@ -19,11 +18,6 @@ Page({
   onShow() {
     // 每次显示时刷新简历列表
     this.loadResumeList();
-  },
-
-  onReady() {
-    // 页面渲染完成后生成预览图
-    this.generatePreviews();
   },
 
   // 加载数据
@@ -61,8 +55,18 @@ Page({
       const resumes = await db.getUserResumes();
 
       if (resumes && resumes.length > 0) {
+        // 为每份简历添加模板预览图
+        const resumesWithPreview = resumes.map(resume => ({
+          ...resume,
+          // 如果简历有 templateId，使用对应模板的预览图
+          // 否则使用默认预览图（这里预留，实际需要准备图片）
+          preview: resume.templateId
+            ? `/assets/images/templates/template-${resume.templateId}.png`
+            : ''
+        }));
+
         this.setData({
-          resumeList: resumes.slice(0, 3) // 只显示最近的3个
+          resumeList: resumesWithPreview.slice(0, 3) // 只显示最近的3个
         });
       } else {
         // 使用示例数据
@@ -77,26 +81,6 @@ Page({
         resumeList: []
       });
     }
-  },
-
-  // 生成预览图
-  generatePreviews() {
-    const resumeList = this.data.resumeList;
-
-    if (!resumeList || resumeList.length === 0) {
-      return;
-    }
-
-    // 使用 Canvas 生成预览图
-    resumePreview.generateBatchPreviews(resumeList)
-      .then(updatedList => {
-        this.setData({
-          resumeList: updatedList
-        });
-      })
-      .catch(err => {
-        console.error('生成预览图失败:', err);
-      });
   },
 
   // 新建简历
