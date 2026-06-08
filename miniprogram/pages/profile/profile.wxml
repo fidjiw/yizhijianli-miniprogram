@@ -17,7 +17,7 @@
           bindblur="onNicknameBlur"
           maxlength="20"
         />
-        <text class="user-id">ID: {{userInfo.id}} · {{userInfo.vip ? '会员' : '普通用户'}}</text>
+        <text class="user-status">{{userInfo.vip ? '👑 会员' : '普通用户'}}</text>
       </view>
     </view>
 
