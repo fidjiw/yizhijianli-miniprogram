@@ -26,6 +26,19 @@
   <view class="templates-grid">
     <view class="template-card" wx:for="{{templates}}" wx:key="id" bindtap="handleTemplateClick" data-id="{{item.id}}">
       <view class="template-preview" style="background: {{item.bgColor}};">
+        <!-- 预览图 -->
+        <image
+          wx:if="{{item.preview}}"
+          class="template-preview-image"
+          src="{{item.preview}}"
+          mode="aspectFill"
+          lazy-load="{{true}}"
+        />
+        <!-- 占位图 -->
+        <view wx:else class="template-placeholder">
+          <text class="template-placeholder-icon">📄</text>
+        </view>
+        <!-- 标签 -->
         <text class="template-badge chip-coral" wx:if="{{item.hot}}">热门</text>
         <text class="template-badge chip" wx:if="{{item.vip}}" style="background: #FFF8EC; color: #B8860B;">VIP</text>
       </view>

@@ -9,7 +9,8 @@ Page({
         category: '通用',
         vip: false,
         hot: true,
-        bgColor: 'linear-gradient(160deg, #E6FBF7, #C9F3EC)'
+        bgColor: 'linear-gradient(160deg, #E6FBF7, #C9F3EC)',
+        preview: '' // 预留图片路径：/assets/images/templates/template-1.png
       },
       {
         id: 2,
@@ -17,7 +18,8 @@ Page({
         category: '设计',
         vip: true,
         hot: false,
-        bgColor: 'linear-gradient(160deg, #FFF1E9, #FFE0D2)'
+        bgColor: 'linear-gradient(160deg, #FFF1E9, #FFE0D2)',
+        preview: '' // 预留图片路径
       },
       {
         id: 3,
@@ -25,7 +27,8 @@ Page({
         category: '求职',
         vip: false,
         hot: false,
-        bgColor: 'linear-gradient(160deg, #EAF0FF, #D5E2FF)'
+        bgColor: 'linear-gradient(160deg, #EAF0FF, #D5E2FF)',
+        preview: '' // 预留图片路径
       },
       {
         id: 4,
@@ -33,7 +36,8 @@ Page({
         category: '运营',
         vip: true,
         hot: false,
-        bgColor: 'linear-gradient(160deg, #F3ECFF, #E5D9FF)'
+        bgColor: 'linear-gradient(160deg, #F3ECFF, #E5D9FF)',
+        preview: '' // 预留图片路径
       },
       {
         id: 5,
@@ -41,7 +45,8 @@ Page({
         category: '通用',
         vip: false,
         hot: false,
-        bgColor: 'linear-gradient(160deg, #F8F9FA, #E9ECEF)'
+        bgColor: 'linear-gradient(160deg, #F8F9FA, #E9ECEF)',
+        preview: '' // 预留图片路径
       },
       {
         id: 6,
@@ -49,7 +54,8 @@ Page({
         category: '校招',
         vip: false,
         hot: true,
-        bgColor: 'linear-gradient(160deg, #FFF5E6, #FFE8CC)'
+        bgColor: 'linear-gradient(160deg, #FFF5E6, #FFE8CC)',
+        preview: '' // 预留图片路径
       }
     ]
   },

@@ -35,7 +35,19 @@
     <!-- 简历列表 -->
     <view class="resume-list">
       <view class="resume-card" wx:for="{{resumeList}}" wx:key="id" bindtap="handleResumeClick" data-id="{{item.id}}">
-        <view class="resume-thumbnail"></view>
+        <!-- 简历缩略图 -->
+        <view class="resume-thumbnail">
+          <image
+            wx:if="{{item.preview}}"
+            class="resume-preview-image"
+            src="{{item.preview}}"
+            mode="aspectFill"
+            lazy-load="{{true}}"
+          />
+          <view wx:else class="resume-placeholder">
+            <text class="placeholder-icon">📄</text>
+          </view>
+        </view>
         <view class="resume-info">
           <text class="resume-title">{{item.title}}</text>
           <text class="resume-time">更新于 {{item.updateTime}}</text>
