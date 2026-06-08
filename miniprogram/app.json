@@ -17,10 +17,10 @@
     "backgroundColor": "#F4F8F9"
   },
   "tabBar": {
-    "color": "#AEB7C2",
+    "color": "#8F9BA8",
     "selectedColor": "#0FB9A6",
     "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "fontSize": "11px",
     "list": [
       {
