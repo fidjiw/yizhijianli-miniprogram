@@ -6,7 +6,9 @@ const storage = require('../../utils/storage');
 
 Page({
   data: {
-    statusBarHeight: 0
+    statusBarHeight: 0,
+    userInfo: null,
+    isLoggedIn: false
   },
 
   onLoad() {
@@ -18,7 +20,14 @@ Page({
 
     // 检查是否已登录
     if (wxAuth.isLoggedIn()) {
-      // 已登录，跳转到首页
+      // 已登录，获取用户信息
+      const userInfo = storage.getUserInfo();
+      this.setData({
+        isLoggedIn: true,
+        userInfo: userInfo
+      });
+
+      // 延迟跳转到首页
       setTimeout(() => {
         wx.switchTab({
           url: '/pages/home/home'
@@ -34,11 +43,81 @@ Page({
     wxAuth.login()
       .then((result) => {
         wx.hideLoading();
+
+        // 获取用户信息（如果有）
+        const userInfo = storage.getUserInfo();
+
+        this.setData({
+          isLoggedIn: true,
+          userInfo: userInfo
+        });
+
         helpers.showSuccess('登录成功');
 
-        // 更新全局用户信息
-        const userInfo = storage.getUserInfo();
-        app.globalData.userInfo = userInfo;
+        // 提示用户可以授权获取头像和昵称
+        if (!userInfo || !userInfo.nickname) {
+          setTimeout(() => {
+            this.showAuthorizationTip();
+          }, 1000);
+        } else {
+          // 已有用户信息，直接跳转
+          setTimeout(() => {
+            wx.switchTab({
+              url: '/pages/home/home'
+            });
+          }, 1500);
+        }
+      })
+      .catch((error) => {
+        wx.hideLoading();
+        console.error('登录失败:', error);
+
+        let errorMsg = '登录失败，请重试';
+        if (typeof error === 'string') {
+          errorMsg = error;
+        } else if (error.message) {
+          errorMsg = error.message;
+        }
+
+        helpers.showError(errorMsg);
+      });
+  },
+
+  // 显示授权提示
+  showAuthorizationTip() {
+    wx.showModal({
+      title: '完善资料',
+      content: '授权获取头像和昵称，可以让你的简历更完整',
+      confirmText: '授权',
+      cancelText: '稍后',
+      success: (res) => {
+        if (res.confirm) {
+          this.handleAuthorize();
+        } else {
+          // 用户选择稍后，跳转到首页
+          setTimeout(() => {
+            wx.switchTab({
+              url: '/pages/home/home'
+            });
+          }, 500);
+        }
+      }
+    });
+  },
+
+  // 处理用户授权
+  handleAuthorize() {
+    helpers.showLoading('授权中...');
+
+    wxAuth.authorizeUserProfile()
+      .then((userInfo) => {
+        wx.hideLoading();
+        helpers.showSuccess('授权成功');
+
+        // 更新页面显示
+        this.setData({
+          userInfo: userInfo
+        });
 
         // 延迟跳转
         setTimeout(() => {
@@ -49,18 +128,15 @@ Page({
       })
       .catch((error) => {
         wx.hideLoading();
-        console.error('登录失败:', error);
+        console.error('授权失败:', error);
+        helpers.showError('授权失败：' + error);
 
-        // 根据错误类型显示不同的提示
-        let errorMsg = '登录失败，请重试';
-
-        if (typeof error === 'string') {
-          errorMsg = error;
-        } else if (error.message) {
-          errorMsg = error.message;
-        }
-
-        helpers.showError(errorMsg);
+        // 授权失败后也跳转到首页
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/home/home'
+          });
+        }, 1500);
       });
   },
 
@@ -81,6 +157,13 @@ Page({
       content: '一纸简历隐私政策\n\n1. 信息收集\n我们收集必要的用户信息以提供服务。\n\n2. 信息使用\n仅用于改进服务和用户体验。\n\n3. 信息保护\n我们采取措施保护您的信息安全。\n\n4. 第三方\n不会向第三方出售或共享您的个人信息。',
       showCancel: false,
       confirmText: '我已阅读'
+    });
+  },
+
+  // 进入首页
+  goToHome() {
+    wx.switchTab({
+      url: '/pages/home/home'
     });
   }
 });

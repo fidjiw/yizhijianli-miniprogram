@@ -3,49 +3,74 @@
   <!-- 状态栏占位 -->
   <view style="height: {{statusBarHeight}}px;"></view>
 
-  <!-- 主内容区 -->
-  <view class="content">
-    <!-- Logo 图标 -->
-    <view class="logo-icon">📄</view>
+  <!-- 已登录状态显示用户信息 -->
+  <view class="user-info-section" wx:if="{{isLoggedIn && userInfo}}">
+    <view class="user-profile">
+      <image class="user-avatar" src="{{userInfo.avatar}}" mode="aspectFill" wx:if="{{userInfo.avatar}}"></image>
+      <view class="avatar-placeholder" wx:else>👤</view>
 
-    <!-- Slogan -->
-    <view class="slogan">
-      <text class="slogan-main">一张纸\n讲好你的故事</text>
+      <view class="user-details">
+        <view class="user-nickname">{{userInfo.nickname || '未设置昵称'}}</view>
+        <view class="user-id">ID: {{userInfo.userId}}</view>
+      </view>
     </view>
 
-    <!-- 描述 -->
-    <view class="description">
-      <text>海量精选模板 · 智能内容润色</text>
-      <text>3 分钟生成一份专业简历</text>
+    <view class="user-actions">
+      <button class="action-btn primary" bindtap="goToHome">
+        进入首页
+      </button>
+      <button class="action-btn secondary" bindtap="handleAuthorize" wx:if="{{!userInfo.nickname}}">
+        完善资料
+      </button>
     </view>
   </view>
 
-  <!-- 三个特性卡片 -->
-  <view class="features">
-    <view class="feature-card">
-      <text class="feature-icon">🎨</text>
-      <text class="feature-text">精美模板</text>
-    </view>
-    <view class="feature-card">
-      <text class="feature-icon">🤖</text>
-      <text class="feature-text">AI 润色</text>
-    </view>
-    <view class="feature-card">
-      <text class="feature-icon">📤</text>
-      <text class="feature-text">一键导出</text>
-    </view>
-  </view>
+  <!-- 未登录状态显示登录页面 -->
+  <view class="login-page" wx:else>
+    <!-- 主内容区 -->
+    <view class="content">
+      <!-- Logo 图标 -->
+      <view class="logo-icon">📄</view>
 
-  <!-- 登录按钮 -->
-  <view class="login-section">
-    <button class="login-btn" bindtap="handleLogin">
-      微信一键登录
-    </button>
-    <view class="agreement">
-      <text>登录即同意</text>
-      <text class="link" bindtap="showAgreement">《用户协议》</text>
-      <text>和</text>
-      <text class="link" bindtap="showPrivacy">《隐私政策》</text>
+      <!-- Slogan -->
+      <view class="slogan">
+        <text class="slogan-main">一张纸\n讲好你的故事</text>
+      </view>
+
+      <!-- 描述 -->
+      <view class="description">
+        <text>海量精选模板 · 智能内容润色</text>
+        <text>3 分钟生成一份专业简历</text>
+      </view>
+    </view>
+
+    <!-- 三个特性卡片 -->
+    <view class="features">
+      <view class="feature-card">
+        <text class="feature-icon">🎨</text>
+        <text class="feature-text">精美模板</text>
+      </view>
+      <view class="feature-card">
+        <text class="feature-icon">🤖</text>
+        <text class="feature-text">AI 润色</text>
+      </view>
+      <view class="feature-card">
+        <text class="feature-icon">📤</text>
+        <text class="feature-text">一键导出</text>
+      </view>
+    </view>
+
+    <!-- 登录按钮 -->
+    <view class="login-section">
+      <button class="login-btn" bindtap="handleLogin">
+        微信一键登录
+      </button>
+      <view class="agreement">
+        <text>登录即同意</text>
+        <text class="link" bindtap="showAgreement">《用户协议》</text>
+        <text>和</text>
+        <text class="link" bindtap="showPrivacy">《隐私政策》</text>
+      </view>
     </view>
   </view>
 </view>

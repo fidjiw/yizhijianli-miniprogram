@@ -107,3 +107,91 @@
   color: rgba(255, 255, 255, 0.95);
   text-decoration: underline;
 }
+
+/* 用户信息区域 */
+.user-info-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 60rpx;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+  margin-bottom: 80rpx;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40rpx;
+  border-radius: 24rpx;
+  backdrop-filter: blur(10rpx);
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.avatar-placeholder {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64rpx;
+  flex-shrink: 0;
+}
+
+.user-details {
+  flex: 1;
+  color: #fff;
+}
+
+.user-nickname {
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+.user-id {
+  font-size: 24rpx;
+  opacity: 0.8;
+}
+
+.user-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.action-btn {
+  padding: 28rpx;
+  border-radius: 60rpx;
+  font-weight: 700;
+  font-size: 28rpx;
+  border: none;
+}
+
+.action-btn::after {
+  border: none;
+}
+
+.action-btn.primary {
+  background: #fff;
+  color: #0FB9A6;
+  box-shadow: 0 16rpx 40rpx rgba(0, 0, 0, 0.15);
+}
+
+.action-btn.secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 2rpx solid rgba(255, 255, 255, 0.4);
+}
