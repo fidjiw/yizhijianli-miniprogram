@@ -95,7 +95,7 @@
 }
 
 .edit-hint {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 500;
 }
@@ -106,7 +106,7 @@
 }
 
 .user-status {
-  font-size: 24rpx;
+  font-size: 26rpx;
   opacity: 0.9;
   font-weight: 600;
 }
@@ -134,7 +134,7 @@
 }
 
 .stat-label {
-  font-size: 20rpx;
+  font-size: 24rpx;
   opacity: 0.9;
   font-weight: 600;
 }
@@ -174,7 +174,7 @@
 }
 
 .vip-desc {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: #6B7787;
   font-weight: 600;
 }
@@ -199,11 +199,12 @@
 }
 
 .menu-item {
-  padding: 28rpx 32rpx;
+  padding: 32rpx;
   display: flex;
   align-items: center;
   gap: 20rpx;
   border-bottom: 1px solid #EEF1F4;
+  min-height: 88rpx;
 }
 
 .menu-item:last-child {
@@ -216,7 +217,7 @@
 
 .menu-text {
   flex: 1;
-  font-size: 26rpx;
+  font-size: 28rpx;
   font-weight: 600;
 }
 
