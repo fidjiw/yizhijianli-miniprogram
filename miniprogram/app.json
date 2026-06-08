@@ -8,6 +8,9 @@
     "pages/preview/preview",
     "pages/my-resumes/my-resumes",
     "pages/profile/profile",
+    "pages/favorites/favorites",
+    "pages/stats/stats",
+    "pages/settings/settings",
     "pages/agreement/agreement",
     "pages/privacy/privacy"
   ],
