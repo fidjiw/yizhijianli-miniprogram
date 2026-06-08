@@ -1,10 +1,9 @@
 // utils/wx-auth.js
 /**
- * 微信真实登录工具
+ * 微信真实登录工具 + 微信云开发集成
  * 实现完整的微信登录、授权、token 管理流程
  */
 
-const http = require('./http');
 const storage = require('./storage');
 
 const wxAuth = {
@@ -29,10 +28,25 @@ const wxAuth = {
   },
 
   /**
-   * 第二步：用 code 换取 session_key 和 token
+   * 第二步：用 code 换取 session_key 和 token（调用云函数）
    */
   _exchangeToken(code) {
-    return http.post('/api/auth/login', { code });
+    return new Promise((resolve, reject) => {
+      wx.cloud.callFunction({
+        name: 'login',
+        data: { code },
+        success: (result) => {
+          if (result.result.code === 0) {
+            resolve(result.result.data);
+          } else {
+            reject(result.result.msg || '云函数调用失败');
+          }
+        },
+        fail: (error) => {
+          reject('云函数调用失败：' + error.errMsg);
+        }
+      });
+    });
   },
 
   /**
@@ -82,9 +96,27 @@ const wxAuth = {
         const userInfo = await this._getUserProfile();
         console.log('✓ 获取用户信息成功');
 
-        // 步骤4：保存用户信息到后端
-        await http.post('/api/user/info', userInfo);
-        console.log('✓ 用户信息已保存');
+        // 步骤4：保存用户信息到云数据库
+        await new Promise((resolve, reject) => {
+          wx.cloud.callFunction({
+            name: 'getUserInfo',
+            data: {
+              nickName: userInfo.nickName,
+              avatarUrl: userInfo.avatarUrl
+            },
+            success: (result) => {
+              if (result.result.code === 0) {
+                console.log('✓ 用户信息已保存');
+                resolve();
+              } else {
+                reject(result.result.msg || '保存失败');
+              }
+            },
+            fail: (error) => {
+              reject('保存用户信息失败：' + error.errMsg);
+            }
+          });
+        });
 
         // 保存到本地存储
         storage.setUserInfo({
@@ -109,11 +141,8 @@ const wxAuth = {
    * 登出
    */
   logout() {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
-        // 调用后端登出接口
-        await http.post('/api/auth/logout', {});
-
         // 清除本地存储
         wx.removeStorageSync('token');
         wx.removeStorageSync('userId');
@@ -178,10 +207,10 @@ const wxAuth = {
 
   /**
    * 检查 token 是否有效
-   * 可选：向后端验证 token
    */
   validateToken() {
-    return http.get('/api/auth/validate');
+    const token = wx.getStorageSync('token');
+    return !!token;
   }
 };
 
