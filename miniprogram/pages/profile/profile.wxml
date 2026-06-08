@@ -10,13 +10,17 @@
       </button>
       <view class="user-detail">
         <!-- 改为普通输入框，让用户手动输入昵称 -->
-        <input
-          class="user-name-input"
-          value="{{userInfo.nickname}}"
-          placeholder="点击输入昵称"
-          bindblur="onNicknameBlur"
-          maxlength="20"
-        />
+        <view class="nickname-wrapper">
+          <input
+            class="user-name-input"
+            value="{{userInfo.nickname}}"
+            placeholder="设置昵称"
+            placeholder-class="nickname-placeholder"
+            bindblur="onNicknameBlur"
+            maxlength="20"
+          />
+          <text class="edit-icon" wx:if="{{!userInfo.nickname || userInfo.nickname === '点击输入昵称'}}">✏️</text>
+        </view>
         <text class="user-status">{{userInfo.vip ? '👑 会员' : '普通用户'}}</text>
       </view>
     </view>
