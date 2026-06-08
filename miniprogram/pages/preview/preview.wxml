@@ -1,47 +1,95 @@
 <!--pages/preview/preview.wxml-->
 <view class="preview-container">
+  <!-- 顶部导航 -->
   <view class="nav-bar">
     <text class="nav-icon" bindtap="handleBack">‹</text>
-    <text class="nav-title">预览</text>
-    <text class="nav-icon">⋯</text>
+    <text class="nav-title">简历预览</text>
+    <text class="nav-icon" bindtap="handleExport">⋯</text>
   </view>
 
-  <scroll-view class="preview-content" scroll-y>
-    <view class="resume-preview">
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 简历内容 -->
+  <scroll-view class="preview-content" scroll-y wx:else>
+    <view class="resume-preview" id="resume-canvas">
+
+      <!-- 头部信息 -->
       <view class="resume-header">
-        <text class="resume-name">林思禾</text>
-        <text class="resume-contact">138••••6688 · mia@mail.com</text>
-        <text class="resume-position">求职意向：产品经理</text>
+        <text class="resume-name">{{resumeData.name}}</text>
+        <text class="resume-position">{{resumeData.position}}</text>
+        <view class="resume-contact">
+          <text wx:if="{{resumeData.phone}}">📱 {{resumeData.phone}}</text>
+          <text wx:if="{{resumeData.email}}">📧 {{resumeData.email}}</text>
+          <text wx:if="{{resumeData.location}}">📍 {{resumeData.location}}</text>
+        </view>
       </view>
 
-      <view class="resume-section">
+      <!-- 个人简介 -->
+      <view class="resume-section" wx:if="{{resumeData.summary}}">
+        <view class="section-title-bar">
+          <view class="title-marker"></view>
+          <text class="section-title-text">个人简介</text>
+        </view>
+        <view class="section-content">
+          <text class="content-text">{{resumeData.summary}}</text>
+        </view>
+      </view>
+
+      <!-- 教育经历 -->
+      <view class="resume-section" wx:if="{{resumeData.education && resumeData.education.length > 0}}">
         <view class="section-title-bar">
           <view class="title-marker"></view>
           <text class="section-title-text">教育背景</text>
         </view>
-        <view class="section-content">
-          <text class="content-title">浙江大学 · 计算机科学 · 本科</text>
-          <text class="content-desc">2020.09 - 2024.06 · GPA 3.7</text>
+        <view class="section-content" wx:for="{{resumeData.education}}" wx:key="index">
+          <view class="content-item">
+            <text class="content-title">{{item.school}} · {{item.major}}</text>
+            <text class="content-desc">{{item.degree}} · {{item.startDate}} - {{item.endDate}}</text>
+            <text class="content-text" wx:if="{{item.description}}">{{item.description}}</text>
+          </view>
         </view>
       </view>
 
-      <view class="resume-section">
+      <!-- 工作经历 -->
+      <view class="resume-section" wx:if="{{resumeData.experience && resumeData.experience.length > 0}}">
         <view class="section-title-bar">
           <view class="title-marker"></view>
-          <text class="section-title-text">项目经历</text>
+          <text class="section-title-text">工作经历</text>
         </view>
-        <view class="section-content">
-          <text class="content-title">校园二手交易平台 · 产品负责人</text>
-          <text class="content-desc">2023.03 - 2023.12</text>
-          <text class="content-item">• 从 0 到 1 搭建产品架构</text>
-          <text class="content-item">• 上线 3 个月 DAU 破 5000</text>
+        <view class="section-content" wx:for="{{resumeData.experience}}" wx:key="index">
+          <view class="content-item">
+            <text class="content-title">{{item.company}} · {{item.position}}</text>
+            <text class="content-desc">{{item.startDate}} - {{item.endDate}}</text>
+            <text class="content-text" wx:if="{{item.description}}">{{item.description}}</text>
+          </view>
         </view>
       </view>
+
+      <!-- 技能特长 -->
+      <view class="resume-section" wx:if="{{resumeData.skills && resumeData.skills.length > 0}}">
+        <view class="section-title-bar">
+          <view class="title-marker"></view>
+          <text class="section-title-text">技能特长</text>
+        </view>
+        <view class="section-content">
+          <view class="skill-tags">
+            <text class="skill-tag" wx:for="{{resumeData.skills}}" wx:key="index">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+
     </view>
   </scroll-view>
 
-  <view class="bottom-bar">
-    <view class="btn-secondary" bindtap="handleEdit">返回编辑</view>
-    <view class="btn-primary" bindtap="handleExport">导出 📤</view>
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar" wx:if="{{!loading}}">
+    <button class="btn-secondary" bindtap="handleEdit">返回编辑</button>
+    <button class="btn-primary" bindtap="handleExport">导出简历</button>
   </view>
+
+  <!-- Canvas（用于导出图片，隐藏） -->
+  <canvas type="2d" id="resume-canvas-export" style="position: fixed; left: -9999px; top: -9999px;"></canvas>
 </view>
