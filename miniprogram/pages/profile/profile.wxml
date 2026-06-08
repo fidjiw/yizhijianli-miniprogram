@@ -3,21 +3,31 @@
   <!-- 顶部用户信息卡片 -->
   <view class="user-header">
     <view class="user-info">
-      <!-- 头像区域 - 居中显示 -->
+      <!-- 头像区域 -->
       <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
         <image class="user-avatar" src="{{userInfo.avatar}}" mode="aspectFill" wx:if="{{userInfo.avatar}}"></image>
-        <view class="avatar-placeholder" wx:else>📷</view>
+        <view class="avatar-placeholder" wx:else>
+          <text class="camera-icon">📷</text>
+          <text class="camera-hint">上传头像</text>
+        </view>
       </button>
 
-      <!-- 用户信息区域 - 居中显示 -->
+      <!-- 用户信息区域 -->
       <view class="user-detail">
-        <!-- 昵称输入 -->
+        <!-- 昵称显示/编辑 -->
+        <view class="nickname-section" bindtap="onEditNickname" wx:if="{{!isEditingNickname}}">
+          <text class="user-name">{{userInfo.nickname || '未设置昵称'}}</text>
+          <text class="edit-icon">✏️</text>
+        </view>
         <input
+          wx:else
           class="user-name-input"
-          value="{{userInfo.nickname === '未设置昵称' ? '' : userInfo.nickname}}"
-          placeholder="未设置昵称"
-          placeholder-class="nickname-placeholder"
-          bindblur="onNicknameBlur"
+          value="{{editNickname}}"
+          placeholder="请输入昵称"
+          focus="{{isEditingNickname}}"
+          bindinput="onNicknameInput"
+          bindconfirm="onNicknameConfirm"
+          bindblur="onNicknameConfirm"
           maxlength="20"
         />
         <text class="user-status">{{userInfo.vip ? '👑 会员用户' : '普通用户'}}</text>

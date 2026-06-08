@@ -5,7 +5,9 @@ const wxAuth = require('../../utils/wx-auth');
 
 Page({
   data: {
-    userInfo: {}
+    userInfo: {},
+    isEditingNickname: false,
+    editNickname: ''
   },
 
   onLoad() {
@@ -96,7 +98,44 @@ Page({
     */
   },
 
-  // 昵称输入完成
+  // 点击编辑昵称
+  onEditNickname() {
+    this.setData({
+      isEditingNickname: true,
+      editNickname: this.data.userInfo.nickname === '未设置昵称' ? '' : this.data.userInfo.nickname
+    });
+  },
+
+  // 昵称输入
+  onNicknameInput(e) {
+    this.setData({
+      editNickname: e.detail.value
+    });
+  },
+
+  // 昵称输入完成（按回车或失焦）
+  onNicknameConfirm(e) {
+    const nickname = this.data.editNickname.trim();
+
+    console.log('昵称输入完成:', nickname);
+
+    // 退出编辑模式
+    this.setData({
+      isEditingNickname: false
+    });
+
+    // 如果有输入内容，保存
+    if (nickname && nickname !== '微信用户' && nickname !== '未设置昵称') {
+      this.saveUserInfo(nickname, null);
+    } else if (!nickname) {
+      wx.showToast({
+        title: '昵称不能为空',
+        icon: 'none'
+      });
+    }
+  },
+
+  // 昵称输入完成（旧方法，保留以防万一）
   onNicknameBlur(e) {
     const nickname = e.detail.value;
 
