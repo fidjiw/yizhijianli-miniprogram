@@ -3,13 +3,15 @@
   <!-- 顶部用户信息卡片 -->
   <view class="user-header">
     <view class="user-info">
-      <!-- 使用新的头像选择组件 -->
+      <!-- 头像区域 - 居中显示 -->
       <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
         <image class="user-avatar" src="{{userInfo.avatar}}" mode="aspectFill" wx:if="{{userInfo.avatar}}"></image>
         <view class="avatar-placeholder" wx:else>📷</view>
       </button>
+
+      <!-- 用户信息区域 - 居中显示 -->
       <view class="user-detail">
-        <!-- 昵称输入区域 -->
+        <!-- 昵称输入 -->
         <input
           class="user-name-input"
           value="{{userInfo.nickname}}"
