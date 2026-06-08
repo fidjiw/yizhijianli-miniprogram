@@ -6,7 +6,7 @@
 
 /* 用户信息头部 */
 .user-header {
-  padding: 56rpx 40rpx 40rpx;
+  padding: 56rpx 0 40rpx;
   background: linear-gradient(135deg, #2DD4BF, #0FB9A6);
   color: #fff;
   margin-bottom: 32rpx;
@@ -70,6 +70,7 @@
   backdrop-filter: blur(20rpx);
   border-radius: 28rpx;
   padding: 32rpx;
+  margin: 0 40rpx;
   display: flex;
   justify-content: space-around;
   text-align: center;
