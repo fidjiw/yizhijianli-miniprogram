@@ -1,0 +1,27 @@
+<!-- pages/my-resumes/my-resumes.wxml -->
+<view class="my-resumes-container">
+  <view class="header">
+    <text class="page-title">我的简历</text>
+    <text class="create-btn" bindtap="createNew">＋ 新建</text>
+  </view>
+
+  <view class="filter-tabs">
+    <text class="chip">全部 5</text>
+    <text class="chip chip-gray">草稿 2</text>
+    <text class="chip chip-gray">已完成 3</text>
+  </view>
+
+  <view class="resume-list">
+    <view class="resume-card" wx:for="{{resumes}}" wx:key="id" bindtap="handleResumeClick" data-id="{{item.id}}">
+      <view class="resume-thumbnail"></view>
+      <view class="resume-info">
+        <text class="resume-title">{{item.title}}</text>
+        <text class="resume-time">{{item.updateTime}}</text>
+        <view class="resume-tag">
+          <text class="chip">{{item.status === 'completed' ? '已完成' : '完成度 ' + item.progress + '%'}}</text>
+        </view>
+      </view>
+      <text class="resume-more">⋯</text>
+    </view>
+  </view>
+</view>

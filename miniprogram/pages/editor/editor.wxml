@@ -1,0 +1,61 @@
+<!--pages/editor/editor.wxml-->
+<view class="editor-container">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <text class="nav-icon" bindtap="handleBack">‹</text>
+    <text class="nav-title">编辑简历</text>
+    <text class="chip" bindtap="handlePreview">预览</text>
+  </view>
+
+  <!-- 模块tabs -->
+  <scroll-view class="tabs-scroll" scroll-x>
+    <view class="tabs">
+      <text class="chip {{activeTab === 'basic' ? '' : 'chip-gray'}}" bindtap="switchTab" data-tab="basic">基本信息</text>
+      <text class="chip chip-gray" bindtap="switchTab" data-tab="education">教育</text>
+      <text class="chip chip-gray" bindtap="switchTab" data-tab="experience">经历</text>
+      <text class="chip chip-gray" bindtap="switchTab" data-tab="skills">技能</text>
+    </view>
+  </scroll-view>
+
+  <!-- 表单内容 -->
+  <scroll-view class="form-content" scroll-y>
+    <view class="form-card" wx:if="{{activeTab === 'basic'}}">
+      <view class="form-item">
+        <text class="form-label">姓名</text>
+        <input class="form-input active" value="{{resumeData.name}}" placeholder="请输入姓名" />
+      </view>
+
+      <view class="form-item">
+        <text class="form-label">求职意向</text>
+        <input class="form-input" value="{{resumeData.position}}" placeholder="请输入求职意向" />
+      </view>
+
+      <view class="form-row">
+        <view class="form-item half">
+          <text class="form-label">手机</text>
+          <input class="form-input" value="{{resumeData.phone}}" placeholder="手机号" />
+        </view>
+        <view class="form-item half">
+          <text class="form-label">邮箱</text>
+          <input class="form-input" value="{{resumeData.email}}" placeholder="邮箱" />
+        </view>
+      </view>
+    </view>
+
+    <!-- AI辅助卡片 -->
+    <view class="ai-assist-card" bindtap="handleAIGenerate">
+      <text class="ai-icon">🤖</text>
+      <view class="ai-content">
+        <text class="ai-title">个人简介还空着，</text>
+        <text class="ai-desc">让 AI 帮你写一段？</text>
+      </view>
+      <text class="ai-btn">生成</text>
+    </view>
+  </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="btn-secondary" bindtap="handleSaveDraft">保存草稿</view>
+    <view class="btn-primary" bindtap="handleNext">下一步</view>
+  </view>
+</view>

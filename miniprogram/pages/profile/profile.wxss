@@ -1,0 +1,159 @@
+/* pages/profile/profile.wxss */
+.profile-container {
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+/* 用户信息头部 */
+.user-header {
+  padding: 48rpx 40rpx 40rpx;
+  background: linear-gradient(135deg, #2DD4BF, #0FB9A6);
+  color: #fff;
+  margin-bottom: 32rpx;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+  margin-bottom: 32rpx;
+}
+
+.user-avatar {
+  width: 116rpx;
+  height: 116rpx;
+  border-radius: 50%;
+  border: 6rpx solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 16rpx 40rpx rgba(0, 0, 0, 0.15);
+}
+
+.user-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: 800;
+  margin-bottom: 8rpx;
+}
+
+.user-id {
+  font-size: 26rpx;
+  opacity: 0.92;
+  font-weight: 600;
+}
+
+/* 统计数据 */
+.user-stats {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20rpx);
+  border-radius: 28rpx;
+  padding: 32rpx;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 36rpx;
+  font-weight: 800;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.stat-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 会员卡片 */
+.vip-card {
+  margin: 0 32rpx 36rpx;
+  background: linear-gradient(120deg, #FFF8EC, #FFF4E0);
+  border-radius: 36rpx;
+  padding: 32rpx;
+  display: flex;
+  gap: 24rpx;
+  align-items: center;
+  box-shadow: 0 8rpx 28rpx rgba(30, 50, 60, 0.05);
+}
+
+.vip-icon {
+  font-size: 48rpx;
+}
+
+.vip-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.vip-title {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #7A5200;
+  margin-bottom: 6rpx;
+}
+
+.vip-desc {
+  font-size: 22rpx;
+  color: #6B7787;
+  font-weight: 600;
+}
+
+.vip-btn {
+  background: #FFC24B;
+  color: #7A5200;
+  font-size: 24rpx;
+  font-weight: 800;
+  padding: 16rpx 32rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 8rpx 24rpx rgba(255, 193, 7, 0.3);
+}
+
+/* 功能菜单 */
+.menu-list {
+  margin: 0 32rpx;
+  background: #fff;
+  border-radius: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 28rpx rgba(30, 50, 60, 0.05);
+}
+
+.menu-item {
+  padding: 28rpx 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  border-bottom: 1px solid #EEF1F4;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-icon {
+  font-size: 36rpx;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.menu-arrow {
+  font-size: 32rpx;
+  color: #6B7787;
+}

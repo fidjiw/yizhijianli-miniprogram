@@ -1,0 +1,151 @@
+/* pages/editor/editor.wxss */
+.editor-container {
+  min-height: 100vh;
+  background: #F4F8F9;
+  padding-bottom: 160rpx;
+}
+
+/* 顶部导航 */
+.nav-bar {
+  background: #fff;
+  padding: 16rpx 36rpx 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #EEF1F4;
+}
+
+.nav-icon {
+  font-size: 36rpx;
+  color: #6B7787;
+}
+
+.nav-title {
+  font-weight: 700;
+  font-size: 30rpx;
+}
+
+/* 模块tabs */
+.tabs-scroll {
+  padding: 28rpx 36rpx 16rpx;
+  white-space: nowrap;
+}
+
+.tabs {
+  display: flex;
+  gap: 16rpx;
+}
+
+.tabs .chip {
+  flex-shrink: 0;
+}
+
+/* 表单内容 */
+.form-content {
+  padding: 28rpx 36rpx;
+  height: calc(100vh - 240rpx);
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 32rpx;
+  box-shadow: 0 8rpx 28rpx rgba(30, 50, 60, 0.05);
+}
+
+.form-item {
+  margin-bottom: 36rpx;
+}
+
+.form-item.half {
+  flex: 1;
+}
+
+.form-label {
+  font-size: 24rpx;
+  color: #6B7787;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.form-input {
+  border-bottom: 1px solid #EEF1F4;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+  color: #1F2A37;
+}
+
+.form-input.active {
+  border-bottom: 3rpx solid #2DD4BF;
+  font-weight: 700;
+}
+
+.form-row {
+  display: flex;
+  gap: 28rpx;
+}
+
+/* AI辅助卡片 */
+.ai-assist-card {
+  margin-top: 28rpx;
+  background: linear-gradient(120deg, #FFEDE6, #FFF8F0);
+  border-radius: 32rpx;
+  padding: 28rpx;
+  display: flex;
+  gap: 20rpx;
+  align-items: center;
+  box-shadow: 0 8rpx 28rpx rgba(255, 138, 107, 0.12);
+}
+
+.ai-icon {
+  font-size: 44rpx;
+}
+
+.ai-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-title {
+  font-size: 24rpx;
+  font-weight: 700;
+  margin-bottom: 4rpx;
+}
+
+.ai-desc {
+  font-size: 22rpx;
+  color: #6B7787;
+}
+
+.ai-btn {
+  background: #FF8A6B;
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+  padding: 12rpx 28rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 8rpx 24rpx rgba(255, 138, 107, 0.3);
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #EEF1F4;
+  padding: 24rpx 36rpx;
+  display: flex;
+  gap: 20rpx;
+  box-shadow: 0 -8rpx 24rpx rgba(0, 0, 0, 0.04);
+}
+
+.bottom-bar .btn-secondary,
+.bottom-bar .btn-primary {
+  flex: 1;
+  padding: 22rpx;
+  font-size: 26rpx;
+}

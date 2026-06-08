@@ -1,0 +1,83 @@
+/* components/button/button.wxss */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 60rpx;
+  font-weight: 700;
+  font-size: 30rpx;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+.btn::after {
+  border: none;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.btn-text {
+  display: block;
+}
+
+/* 类型 */
+.btn-primary {
+  background: linear-gradient(135deg, #2DD4BF, #0FB9A6);
+  color: #fff;
+  box-shadow: 0 8rpx 24rpx rgba(45, 212, 191, 0.35);
+  width: 100%;
+  height: auto;
+  padding: 28rpx 48rpx;
+}
+
+.btn-primary:active {
+  opacity: 0.9;
+  box-shadow: 0 4rpx 12rpx rgba(45, 212, 191, 0.25);
+}
+
+.btn-secondary {
+  border: 3rpx solid #2DD4BF;
+  color: #0FB9A6;
+  background: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  height: auto;
+  padding: 26rpx 48rpx;
+}
+
+.btn-secondary:active {
+  background: #E6FBF7;
+}
+
+/* 尺寸 */
+.btn-small {
+  font-size: 24rpx;
+  padding: 16rpx 32rpx;
+}
+
+.btn-large {
+  font-size: 32rpx;
+  padding: 36rpx 56rpx;
+}
+
+/* 禁用状态 */
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading 动画 */
+.btn-loading {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

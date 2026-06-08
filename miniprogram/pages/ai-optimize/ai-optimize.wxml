@@ -1,0 +1,41 @@
+<!--pages/ai-optimize/ai-optimize.wxml-->
+<view class="ai-container">
+  <!-- 顶部标题 -->
+  <view class="header-bar">
+    <text class="page-title">AI 智能优化</text>
+  </view>
+
+  <!-- 评分卡片 -->
+  <view class="score-card">
+    <text class="score-label">简历诊断分数</text>
+    <view class="score-display">
+      <text class="score-number">82</text>
+      <text class="score-total">/ 100 · 良好</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: 82%;"></view>
+    </view>
+  </view>
+
+  <!-- 优化建议 -->
+  <view class="suggestions-section">
+    <view class="section-header">
+      <text class="section-title">优化建议</text>
+      <text class="chip-coral">3 条</text>
+    </view>
+
+    <view class="suggestion-card" wx:for="{{suggestions}}" wx:key="id">
+      <text class="suggestion-icon">{{item.icon}}</text>
+      <view class="suggestion-content">
+        <text class="suggestion-title">{{item.title}}</text>
+        <text class="suggestion-desc">{{item.desc}}</text>
+      </view>
+      <text class="chip" bindtap="applySuggestion" data-id="{{item.id}}">应用</text>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-bar">
+    <view class="btn-primary" bindtap="applyAll">一键采纳全部建议</view>
+  </view>
+</view>

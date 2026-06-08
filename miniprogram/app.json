@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/welcome/welcome",
+    "pages/home/home",
+    "pages/templates/templates",
+    "pages/editor/editor",
+    "pages/ai-optimize/ai-optimize",
+    "pages/preview/preview",
+    "pages/my-resumes/my-resumes",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "一纸简历",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F4F8F9"
+  },
+  "tabBar": {
+    "color": "#AEB7C2",
+    "selectedColor": "#0FB9A6",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/templates/templates",
+        "text": "模板"
+      },
+      {
+        "pagePath": "pages/ai-optimize/ai-optimize",
+        "text": "AI"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

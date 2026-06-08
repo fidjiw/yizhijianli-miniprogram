@@ -1,0 +1,38 @@
+<!--pages/templates/templates.wxml-->
+<view class="templates-container">
+  <!-- 顶部 -->
+  <view class="header">
+    <text class="page-title">模板库</text>
+
+    <!-- 搜索框 -->
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索职位 / 风格" />
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-scroll" scroll-x enable-flex>
+    <view class="category-list">
+      <text class="chip {{activeCategory === 'all' ? '' : 'chip-gray'}}" bindtap="handleCategoryChange" data-category="all">全部</text>
+      <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="campus">校招</text>
+      <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="internet">互联网</text>
+      <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="design">设计</text>
+      <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="business">商务</text>
+    </view>
+  </scroll-view>
+
+  <!-- 模板网格 -->
+  <view class="templates-grid">
+    <view class="template-card" wx:for="{{templates}}" wx:key="id" bindtap="handleTemplateClick" data-id="{{item.id}}">
+      <view class="template-preview" style="background: {{item.bgColor}};">
+        <text class="template-badge chip-coral" wx:if="{{item.hot}}">热门</text>
+        <text class="template-badge chip" wx:if="{{item.vip}}" style="background: #FFF8EC; color: #B8860B;">VIP</text>
+      </view>
+      <view class="template-info">
+        <text class="template-name">{{item.name}}</text>
+        <text class="template-desc">{{item.category}} · {{item.vip ? 'VIP' : '免费'}}</text>
+      </view>
+    </view>
+  </view>
+</view>

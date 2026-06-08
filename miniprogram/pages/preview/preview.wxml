@@ -1,0 +1,47 @@
+<!--pages/preview/preview.wxml-->
+<view class="preview-container">
+  <view class="nav-bar">
+    <text class="nav-icon" bindtap="handleBack">‹</text>
+    <text class="nav-title">预览</text>
+    <text class="nav-icon">⋯</text>
+  </view>
+
+  <scroll-view class="preview-content" scroll-y>
+    <view class="resume-preview">
+      <view class="resume-header">
+        <text class="resume-name">林思禾</text>
+        <text class="resume-contact">138••••6688 · mia@mail.com</text>
+        <text class="resume-position">求职意向：产品经理</text>
+      </view>
+
+      <view class="resume-section">
+        <view class="section-title-bar">
+          <view class="title-marker"></view>
+          <text class="section-title-text">教育背景</text>
+        </view>
+        <view class="section-content">
+          <text class="content-title">浙江大学 · 计算机科学 · 本科</text>
+          <text class="content-desc">2020.09 - 2024.06 · GPA 3.7</text>
+        </view>
+      </view>
+
+      <view class="resume-section">
+        <view class="section-title-bar">
+          <view class="title-marker"></view>
+          <text class="section-title-text">项目经历</text>
+        </view>
+        <view class="section-content">
+          <text class="content-title">校园二手交易平台 · 产品负责人</text>
+          <text class="content-desc">2023.03 - 2023.12</text>
+          <text class="content-item">• 从 0 到 1 搭建产品架构</text>
+          <text class="content-item">• 上线 3 个月 DAU 破 5000</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-bar">
+    <view class="btn-secondary" bindtap="handleEdit">返回编辑</view>
+    <view class="btn-primary" bindtap="handleExport">导出 📤</view>
+  </view>
+</view>

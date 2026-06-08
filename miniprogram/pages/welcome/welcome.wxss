@@ -1,0 +1,109 @@
+/* pages/welcome/welcome.wxss */
+.welcome-container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(165deg, #2DD4BF 0%, #0FB9A6 70%);
+  position: relative;
+  padding: 0 60rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  padding-top: 120rpx;
+  color: #fff;
+}
+
+.logo-icon {
+  font-size: 92rpx;
+  margin-bottom: 44rpx;
+}
+
+.slogan {
+  margin-bottom: 20rpx;
+}
+
+.slogan-main {
+  font-size: 60rpx;
+  font-weight: 800;
+  line-height: 1.3;
+  display: block;
+  white-space: pre-line;
+}
+
+.description {
+  opacity: 0.9;
+  font-size: 28rpx;
+  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 特性卡片 */
+.features {
+  position: fixed;
+  bottom: 240rpx;
+  left: 60rpx;
+  right: 60rpx;
+  display: flex;
+  gap: 20rpx;
+}
+
+.feature-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 32rpx;
+  padding: 28rpx;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(10rpx);
+}
+
+.feature-icon {
+  font-size: 44rpx;
+  margin-bottom: 12rpx;
+}
+
+.feature-text {
+  font-size: 24rpx;
+}
+
+/* 登录区域 */
+.login-section {
+  position: fixed;
+  bottom: 92rpx;
+  left: 60rpx;
+  right: 60rpx;
+}
+
+.login-btn {
+  background: #fff;
+  color: #0FB9A6;
+  text-align: center;
+  padding: 30rpx;
+  border-radius: 60rpx;
+  font-weight: 700;
+  font-size: 30rpx;
+  box-shadow: 0 16rpx 40rpx rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.login-btn::after {
+  border: none;
+}
+
+.agreement {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 22rpx;
+  margin-top: 24rpx;
+  font-weight: 400;
+}
+
+.agreement .link {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: underline;
+}

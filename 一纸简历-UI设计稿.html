@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一纸简历 · 小程序 UI 设计稿</title>
+<style>
+:root{
+  color-scheme: light;
+  --mint:#2DD4BF; --mint-d:#0FB9A6; --mint-l:#E6FBF7;
+  --coral:#FF8A6B; --coral-l:#FFEDE6;
+  --ink:#1F2A37; --gray:#6B7787; --line:#EEF1F4;
+  --bg:#F4F8F9; --card:#FFFFFF; --gold:#FFC24B;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(160deg,#EAF6F4,#F4F8F9 40%);color:var(--ink);padding:40px 20px 80px;}
+.page-head{max-width:1180px;margin:0 auto 36px;text-align:center;}
+.page-head .logo{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--mint-d);background:#fff;padding:8px 16px;border-radius:30px;box-shadow:0 6px 20px rgba(45,212,191,.18);}
+.page-head h1{font-size:34px;margin:18px 0 8px;letter-spacing:1px;}
+.page-head p{color:var(--gray);font-size:15px;}
+.section-title{max-width:1180px;margin:48px auto 22px;display:flex;align-items:center;gap:12px;font-size:19px;font-weight:700;}
+.section-title .bar{width:5px;height:20px;border-radius:3px;background:linear-gradient(var(--mint),var(--mint-d));}
+.section-title small{font-weight:400;color:var(--gray);font-size:13px;}
+.grid{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:34px;justify-content:center;}
+/* phone frame */
+.phone{width:300px;background:#0B1620;border-radius:42px;padding:11px;box-shadow:0 24px 60px rgba(20,40,50,.18);position:relative;}
+.phone .screen{background:var(--bg);border-radius:32px;overflow:hidden;position:relative;height:620px;}
+.notch{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#0B1620;border-radius:0 0 16px 16px;z-index:30;}
+.status{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 4px;font-size:12px;font-weight:600;color:var(--ink);}
+.status .dots{display:flex;gap:4px;align-items:center;}
+.scr-cap{text-align:center;margin-top:16px;font-size:14px;font-weight:600;color:var(--ink);}
+.scr-cap span{display:block;font-size:12px;color:var(--gray);font-weight:400;margin-top:3px;}
+.body{height:calc(100% - 38px);overflow:hidden;position:relative;}
+/* shared ui bits */
+.tabbar{position:absolute;bottom:0;left:0;right:0;height:62px;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;padding-bottom:4px;}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:#AEB7C2;}
+.tab.on{color:var(--mint-d);font-weight:600;}
+.tab .ic{width:22px;height:22px;}
+.fab{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--mint-d));box-shadow:0 8px 18px rgba(15,185,166,.45);display:flex;align-items:center;justify-content:center;z-index:5;}
+.chip{display:inline-block;padding:5px 12px;border-radius:30px;font-size:11px;background:var(--mint-l);color:var(--mint-d);font-weight:600;}
+.chip.coral{background:var(--coral-l);color:var(--coral);}
+.chip.gray{background:#F0F2F5;color:var(--gray);}
+</style>
+</head>
+<body>
+<div class="page-head">
+  <div class="logo">📄 一纸简历 · Resume Mini Program</div>
+  <h1>一纸简历 · UI 设计稿</h1>
+  <p>清新年轻风 · 高保真界面示例 — 在线制作 / 模板库 / AI 优化 / 导出 PDF</p>
+</div>
+<div class="section-title"><span class="bar"></span>核心流程 <small>从打开到生成简历的主路径</small></div>
+<div class="grid">
+
+<!-- 1 引导页 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status" style="color:#fff"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body" style="background:linear-gradient(165deg,#2DD4BF,#0FB9A6 70%);">
+  <div style="padding:60px 30px 0;color:#fff;">
+    <div style="font-size:46px;">📄</div>
+    <h2 style="font-size:30px;margin:22px 0 10px;line-height:1.3;">一张纸<br>讲好你的故事</h2>
+    <p style="opacity:.9;font-size:14px;line-height:1.7;">海量精选模板 · 智能内容润色<br>3 分钟生成一份专业简历</p>
+  </div>
+  <div style="position:absolute;bottom:120px;left:30px;right:30px;display:flex;gap:10px;">
+    <div style="flex:1;background:rgba(255,255,255,.18);border-radius:16px;padding:14px;color:#fff;font-size:12px;text-align:center;">🎨<br>精美模板</div>
+    <div style="flex:1;background:rgba(255,255,255,.18);border-radius:16px;padding:14px;color:#fff;font-size:12px;text-align:center;">🤖<br>AI 润色</div>
+    <div style="flex:1;background:rgba(255,255,255,.18);border-radius:16px;padding:14px;color:#fff;font-size:12px;text-align:center;">📤<br>一键导出</div>
+  </div>
+  <div style="position:absolute;bottom:46px;left:30px;right:30px;">
+    <div style="background:#fff;color:var(--mint-d);text-align:center;padding:15px;border-radius:30px;font-weight:700;font-size:15px;box-shadow:0 8px 20px rgba(0,0,0,.15);">微信一键登录</div>
+    <p style="text-align:center;color:rgba(255,255,255,.85);font-size:11px;margin-top:12px;">登录即同意《用户协议》和《隐私政策》</p>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">① 引导 / 登录页<span>品牌主张 + 微信授权登录</span></div>
+</div>
+
+<!-- 2 首页 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body">
+  <div style="padding:8px 18px 0;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:20px;font-weight:800;">嗨，Mia 👋</div><div style="font-size:12px;color:var(--gray);margin-top:2px;">今天也要闪闪发光呀</div></div>
+    <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#FFC24B,#FF8A6B);"></div>
+  </div>
+  <div style="margin:14px 18px;background:linear-gradient(120deg,#2DD4BF,#0FB9A6);border-radius:20px;padding:18px;color:#fff;position:relative;overflow:hidden;">
+    <div style="font-size:15px;font-weight:700;">＋ 新建简历</div>
+    <div style="font-size:12px;opacity:.9;margin-top:6px;">从模板开始，或让 AI 帮你起草</div>
+    <div style="position:absolute;right:-10px;bottom:-14px;font-size:64px;opacity:.25;">📝</div>
+  </div>
+  <div style="margin:0 18px;display:flex;gap:10px;">
+    <div style="flex:1;background:#fff;border-radius:16px;padding:14px;text-align:center;box-shadow:0 4px 14px rgba(30,50,60,.05);"><div style="font-size:22px;">🎨</div><div style="font-size:11px;margin-top:6px;font-weight:600;">模板库</div></div>
+    <div style="flex:1;background:#fff;border-radius:16px;padding:14px;text-align:center;box-shadow:0 4px 14px rgba(30,50,60,.05);"><div style="font-size:22px;">🤖</div><div style="font-size:11px;margin-top:6px;font-weight:600;">AI 润色</div></div>
+    <div style="flex:1;background:#fff;border-radius:16px;padding:14px;text-align:center;box-shadow:0 4px 14px rgba(30,50,60,.05);"><div style="font-size:22px;">📤</div><div style="font-size:11px;margin-top:6px;font-weight:600;">导出</div></div>
+  </div>
+  <div style="margin:18px 18px 8px;display:flex;justify-content:space-between;align-items:center;"><div style="font-weight:700;font-size:14px;">我的简历</div><div style="font-size:11px;color:var(--mint-d);">全部 ›</div></div>
+  <div style="margin:0 18px;background:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+    <div style="width:46px;height:60px;border-radius:8px;background:linear-gradient(160deg,#E6FBF7,#fff);border:1px solid var(--line);"></div>
+    <div style="flex:1;"><div style="font-size:13px;font-weight:600;">产品经理-校招版</div><div style="font-size:11px;color:var(--gray);margin-top:4px;">更新于 2 小时前</div><div style="margin-top:6px;"><span class="chip">完成度 85%</span></div></div>
+    <div style="color:#C4CCD4;">⋯</div>
+  </div>
+  <div class="tabbar">
+    <div class="tab on"><div class="ic">🏠</div>首页</div>
+    <div class="tab"><div class="ic">🎨</div>模板</div>
+    <div class="tab"><div class="ic">🤖</div>AI</div>
+    <div class="tab"><div class="ic">👤</div>我的</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">② 首页<span>快捷入口 + 我的简历列表</span></div>
+</div>
+
+<!-- 3 模板库 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body">
+  <div style="padding:8px 18px 0;"><div style="font-size:20px;font-weight:800;">模板库</div>
+    <div style="margin-top:12px;background:#fff;border-radius:30px;padding:9px 14px;display:flex;align-items:center;gap:8px;color:var(--gray);font-size:13px;box-shadow:0 4px 14px rgba(30,50,60,.05);">🔍 搜索职位 / 风格</div>
+  </div>
+  <div style="padding:14px 18px 6px;display:flex;gap:8px;overflow:hidden;">
+    <span class="chip">全部</span><span class="chip gray">校招</span><span class="chip gray">互联网</span><span class="chip gray">设计</span><span class="chip gray">商务</span>
+  </div>
+  <div style="padding:4px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(30,50,60,.06);">
+      <div style="height:120px;background:linear-gradient(160deg,#E6FBF7,#C9F3EC);position:relative;"><span style="position:absolute;top:8px;left:8px;" class="chip coral">热门</span></div>
+      <div style="padding:8px 10px;"><div style="font-size:12px;font-weight:600;">清新简约</div><div style="font-size:10px;color:var(--gray);margin-top:2px;">通用 · 免费</div></div>
+    </div>
+    <div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(30,50,60,.06);">
+      <div style="height:120px;background:linear-gradient(160deg,#FFF1E9,#FFE0D2);"></div>
+      <div style="padding:8px 10px;"><div style="font-size:12px;font-weight:600;">活力橙调</div><div style="font-size:10px;color:var(--gray);margin-top:2px;">设计 · VIP</div></div>
+    </div>
+    <div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(30,50,60,.06);">
+      <div style="height:120px;background:linear-gradient(160deg,#EAF0FF,#D5E2FF);"></div>
+      <div style="padding:8px 10px;"><div style="font-size:12px;font-weight:600;">商务蓝</div><div style="font-size:10px;color:var(--gray);margin-top:2px;">求职 · 免费</div></div>
+    </div>
+    <div style="background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(30,50,60,.06);">
+      <div style="height:120px;background:linear-gradient(160deg,#F3ECFF,#E5D9FF);"></div>
+      <div style="padding:8px 10px;"><div style="font-size:12px;font-weight:600;">紫调创意</div><div style="font-size:10px;color:var(--gray);margin-top:2px;">运营 · VIP</div></div>
+    </div>
+  </div>
+  <div class="tabbar">
+    <div class="tab"><div class="ic">🏠</div>首页</div>
+    <div class="tab on"><div class="ic">🎨</div>模板</div>
+    <div class="tab"><div class="ic">🤖</div>AI</div>
+    <div class="tab"><div class="ic">👤</div>我的</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">③ 模板库<span>分类筛选 + 双列瀑布流</span></div>
+</div>
+
+<div class="section-title"><span class="bar"></span>编辑与智能 <small>填写、AI 润色、实时预览</small></div>
+<div class="grid">
+
+<!-- 4 编辑器 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body" style="background:#F4F8F9;">
+  <div style="padding:8px 18px 10px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);">
+    <span style="font-size:18px;color:var(--gray);">‹</span><span style="font-weight:700;font-size:15px;">编辑简历</span><span class="chip">预览</span>
+  </div>
+  <div style="padding:14px 18px 0;display:flex;gap:8px;overflow:hidden;font-size:12px;">
+    <span class="chip">基本信息</span><span class="chip gray">教育</span><span class="chip gray">经历</span><span class="chip gray">技能</span>
+  </div>
+  <div style="padding:14px 18px;">
+    <div style="background:#fff;border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <div style="font-size:12px;color:var(--gray);">姓名</div>
+      <div style="border-bottom:1.5px solid var(--mint);padding:8px 0;font-weight:600;">林思禾</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:16px;">求职意向</div>
+      <div style="border-bottom:1px solid var(--line);padding:8px 0;color:var(--ink);">产品经理</div>
+      <div style="display:flex;gap:14px;margin-top:16px;">
+        <div style="flex:1;"><div style="font-size:12px;color:var(--gray);">手机</div><div style="border-bottom:1px solid var(--line);padding:8px 0;font-size:13px;">138••••6688</div></div>
+        <div style="flex:1;"><div style="font-size:12px;color:var(--gray);">邮箱</div><div style="border-bottom:1px solid var(--line);padding:8px 0;font-size:13px;">mia@mail.com</div></div>
+      </div>
+    </div>
+    <div style="margin-top:14px;background:var(--coral-l);border-radius:16px;padding:14px;display:flex;gap:10px;align-items:center;">
+      <div style="font-size:22px;">🤖</div>
+      <div style="flex:1;font-size:12px;color:var(--ink);">个人简介还空着，<b>让 AI 帮你写一段？</b></div>
+      <div style="background:var(--coral);color:#fff;font-size:11px;font-weight:600;padding:6px 12px;border-radius:20px;">生成</div>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:12px 18px;display:flex;gap:10px;">
+    <div style="flex:1;text-align:center;border:1.5px solid var(--mint);color:var(--mint-d);border-radius:24px;padding:11px;font-size:13px;font-weight:600;">保存草稿</div>
+    <div style="flex:1;text-align:center;background:linear-gradient(135deg,var(--mint),var(--mint-d));color:#fff;border-radius:24px;padding:11px;font-size:13px;font-weight:600;">下一步</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">④ 简历编辑器<span>分模块表单 + AI 写作助手</span></div>
+</div>
+
+<!-- 5 AI优化 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body" style="background:#F4F8F9;">
+  <div style="padding:8px 18px 10px;text-align:center;font-weight:700;font-size:15px;background:#fff;border-bottom:1px solid var(--line);">AI 智能优化</div>
+  <div style="padding:16px 18px;">
+    <div style="background:linear-gradient(125deg,#2DD4BF,#0FB9A6);border-radius:18px;padding:16px;color:#fff;">
+      <div style="font-size:13px;font-weight:700;">简历诊断分数</div>
+      <div style="display:flex;align-items:flex-end;gap:6px;margin-top:6px;"><span style="font-size:40px;font-weight:800;line-height:1;">82</span><span style="opacity:.85;font-size:12px;margin-bottom:6px;">/ 100 · 良好</span></div>
+      <div style="height:6px;background:rgba(255,255,255,.3);border-radius:6px;margin-top:10px;"><div style="width:82%;height:100%;background:#fff;border-radius:6px;"></div></div>
+    </div>
+    <div style="margin-top:14px;font-size:13px;font-weight:700;">优化建议 <span style="color:var(--coral);">3 条</span></div>
+    <div style="margin-top:10px;background:#fff;border-radius:14px;padding:13px;display:flex;gap:10px;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <div style="font-size:18px;">✨</div><div style="flex:1;"><div style="font-size:12px;font-weight:600;">用数据量化成果</div><div style="font-size:11px;color:var(--gray);margin-top:3px;line-height:1.5;">"提升了转化"→"将转化率提升 28%"</div></div><span class="chip" style="align-self:center;">应用</span>
+    </div>
+    <div style="margin-top:10px;background:#fff;border-radius:14px;padding:13px;display:flex;gap:10px;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <div style="font-size:18px;">🎯</div><div style="flex:1;"><div style="font-size:12px;font-weight:600;">补充关键词</div><div style="font-size:11px;color:var(--gray);margin-top:3px;line-height:1.5;">岗位 JD 中"数据分析"未出现</div></div><span class="chip" style="align-self:center;">应用</span>
+    </div>
+    <div style="margin-top:10px;background:#fff;border-radius:14px;padding:13px;display:flex;gap:10px;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <div style="font-size:18px;">📐</div><div style="flex:1;"><div style="font-size:12px;font-weight:600;">精简篇幅</div><div style="font-size:11px;color:var(--gray);margin-top:3px;line-height:1.5;">建议控制在 1 页内</div></div><span class="chip" style="align-self:center;">应用</span>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:12px 18px;">
+    <div style="text-align:center;background:linear-gradient(135deg,var(--mint),var(--mint-d));color:#fff;border-radius:24px;padding:12px;font-size:13px;font-weight:700;">一键采纳全部建议</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">⑤ AI 智能优化<span>简历评分 + 可一键应用的建议</span></div>
+</div>
+
+<!-- 6 简历预览 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body" style="background:#F4F8F9;">
+  <div style="padding:8px 18px 10px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);">
+    <span style="font-size:18px;color:var(--gray);">‹</span><span style="font-weight:700;font-size:15px;">预览</span><span style="font-size:18px;color:var(--gray);">⋯</span>
+  </div>
+  <div style="padding:16px 18px;overflow-y:auto;height:calc(100% - 100px);">
+    <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 14px rgba(30,50,60,.06);">
+      <div style="text-align:center;"><div style="font-size:18px;font-weight:700;">林思禾</div><div style="font-size:11px;color:var(--gray);margin-top:4px;">138••••6688 · mia@mail.com</div><div style="font-size:11px;color:var(--gray);margin-top:2px;">求职意向：产品经理</div></div>
+      <div style="height:1px;background:var(--line);margin:12px 0;"></div>
+      <div style="font-size:11px;font-weight:700;color:var(--mint-d);">█ 教育背景</div>
+      <div style="font-size:10px;margin-top:6px;line-height:1.6;"><b>浙江大学</b> · 计算机科学 · 本科<br>2020.09 - 2024.06 · GPA 3.7</div>
+      <div style="height:1px;background:var(--line);margin:10px 0;"></div>
+      <div style="font-size:11px;font-weight:700;color:var(--mint-d);">█ 项目经历</div>
+      <div style="font-size:10px;margin-top:6px;line-height:1.6;"><b>校园二手交易平台</b> · 产品负责人<br>2023.03 - 2023.12<br>• 从 0 到 1 搭建产品架构<br>• 上线 3 个月 DAU 破 5000</div>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:12px 18px;display:flex;gap:10px;">
+    <div style="flex:1;text-align:center;border:1.5px solid var(--mint);color:var(--mint-d);border-radius:24px;padding:11px;font-size:13px;font-weight:600;">返回编辑</div>
+    <div style="flex:1;text-align:center;background:linear-gradient(135deg,var(--mint),var(--mint-d));color:#fff;border-radius:24px;padding:11px;font-size:13px;font-weight:600;">导出 📤</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">⑥ 简历预览<span>实时渲染 + 导出入口</span></div>
+</div>
+
+<div class="section-title"><span class="bar"></span>导出与个人中心 <small>分享、简历管理、会员</small></div>
+<div class="grid">
+
+<!-- 7 导出分享 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body" style="background:rgba(20,40,50,.45);">
+  <div style="filter:blur(1px);opacity:.5;padding:16px 18px;"><div style="background:#fff;border-radius:16px;height:380px;"></div></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-radius:24px 24px 0 0;padding:20px 18px 26px;">
+    <div style="width:40px;height:4px;background:var(--line);border-radius:4px;margin:0 auto 18px;"></div>
+    <div style="font-size:16px;font-weight:700;text-align:center;">导出 & 分享</div>
+    <div style="display:flex;gap:12px;margin-top:18px;">
+      <div style="flex:1;text-align:center;"><div style="height:58px;background:var(--mint-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;">📄</div><div style="font-size:11px;margin-top:6px;font-weight:600;">PDF</div></div>
+      <div style="flex:1;text-align:center;"><div style="height:58px;background:var(--coral-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;">🖼️</div><div style="font-size:11px;margin-top:6px;font-weight:600;">长图</div></div>
+      <div style="flex:1;text-align:center;"><div style="height:58px;background:#EAF0FF;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;">🔗</div><div style="font-size:11px;margin-top:6px;font-weight:600;">在线链接</div></div>
+      <div style="flex:1;text-align:center;"><div style="height:58px;background:#E9F9EE;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;">💬</div><div style="font-size:11px;margin-top:6px;font-weight:600;">微信</div></div>
+    </div>
+    <div style="margin-top:18px;background:#FFF8EC;border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center;">
+      <span style="font-size:18px;">👑</span><div style="flex:1;font-size:11px;">开通会员去水印 · 解锁全部模板</div><span class="chip" style="background:var(--gold);color:#7A5200;">立即</span>
+    </div>
+    <div style="margin-top:16px;text-align:center;background:linear-gradient(135deg,var(--mint),var(--mint-d));color:#fff;border-radius:24px;padding:13px;font-size:14px;font-weight:700;">下载 PDF</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">⑦ 导出 / 分享<span>PDF · 长图 · 链接 · 会员去水印</span></div>
+</div>
+
+<!-- 8 我的简历列表 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body">
+  <div style="padding:8px 18px 10px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="font-size:20px;font-weight:800;">我的简历</div><div style="font-size:11px;color:var(--mint-d);">＋ 新建</div>
+  </div>
+  <div style="padding:0 18px 10px;display:flex;gap:8px;font-size:12px;">
+    <span class="chip">全部 5</span><span class="chip gray">草稿 2</span><span class="chip gray">已完成 3</span>
+  </div>
+  <div style="padding:0 18px;">
+    <div style="background:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;margin-bottom:12px;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <div style="width:50px;height:66px;border-radius:8px;background:linear-gradient(160deg,#E6FBF7,#C9F3EC);border:1px solid var(--line);"></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">产品经理-校招版</div><div style="font-size:11px;color:var(--gray);margin-top:4px;">更新于 2 小时前</div><div style="margin-top:6px;"><span class="chip">完成度 85%</span></div></div>
+      <div style="color:#C4CCD4;">⋯</div>
+    </div>
+    <div style="background:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;margin-bottom:12px;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <div style="width:50px;height:66px;border-radius:8px;background:linear-gradient(160deg,#FFE0D2,#FFF1E9);border:1px solid var(--line);"></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">设计实习生</div><div style="font-size:11px;color:var(--gray);margin-top:4px;">5 天前</div><div style="margin-top:6px;"><span class="chip">已完成</span></div></div>
+      <div style="color:#C4CCD4;">⋯</div>
+    </div>
+    <div style="background:#fff;border-radius:16px;padding:12px;display:flex;gap:12px;margin-bottom:12px;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <div style="width:50px;height:66px;border-radius:8px;background:linear-gradient(160deg,#EAF0FF,#D5E2FF);border:1px solid var(--line);"></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">运营岗-社招</div><div style="font-size:11px;color:var(--gray);margin-top:4px;">1 周前</div><div style="margin-top:6px;"><span class="chip gray">草稿</span></div></div>
+      <div style="color:#C4CCD4;">⋯</div>
+    </div>
+  </div>
+  <div class="tabbar">
+    <div class="tab"><div class="ic">🏠</div>首页</div>
+    <div class="tab"><div class="ic">🎨</div>模板</div>
+    <div class="tab"><div class="ic">🤖</div>AI</div>
+    <div class="tab on"><div class="ic">👤</div>我的</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">⑧ 我的简历列表<span>历史简历管理 + 状态筛选</span></div>
+</div>
+
+<!-- 9 个人中心 -->
+<div>
+<div class="phone"><div class="notch"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="dots">📶 🔋</span></div>
+<div class="body">
+  <div style="padding:20px 18px 16px;background:linear-gradient(135deg,#2DD4BF,#0FB9A6);color:#fff;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#FFC24B,#FF8A6B);border:3px solid rgba(255,255,255,.3);"></div>
+      <div><div style="font-size:18px;font-weight:700;">Mia</div><div style="font-size:12px;opacity:.9;margin-top:2px;">ID: 8866 · 普通用户</div></div>
+    </div>
+    <div style="margin-top:14px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border-radius:14px;padding:12px;display:flex;justify-content:space-around;text-align:center;">
+      <div><div style="font-size:18px;font-weight:700;">5</div><div style="font-size:10px;opacity:.85;margin-top:2px;">简历数</div></div>
+      <div style="width:1px;background:rgba(255,255,255,.25);"></div>
+      <div><div style="font-size:18px;font-weight:700;">12</div><div style="font-size:10px;opacity:.85;margin-top:2px;">AI 次数</div></div>
+      <div style="width:1px;background:rgba(255,255,255,.25);"></div>
+      <div><div style="font-size:18px;font-weight:700;">8</div><div style="font-size:10px;opacity:.85;margin-top:2px;">导出数</div></div>
+    </div>
+  </div>
+  <div style="padding:14px 18px;">
+    <div style="background:linear-gradient(120deg,#FFF8EC,#FFF4E0);border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:0 4px 14px rgba(30,50,60,.05);">
+      <span style="font-size:28px;">👑</span><div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#7A5200;">升级会员</div><div style="font-size:11px;color:var(--gray);margin-top:2px;">解锁所有模板 · 无限 AI 次数</div></div><div style="background:var(--gold);color:#7A5200;font-size:11px;font-weight:600;padding:8px 14px;border-radius:20px;">去开通</div>
+    </div>
+    <div style="margin-top:16px;">
+      <div style="background:#fff;border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1px;box-shadow:0 2px 8px rgba(30,50,60,.04);">
+        <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:18px;">📦</span><span style="font-size:13px;font-weight:600;">我的模板</span></div><span style="font-size:14px;color:var(--gray);">›</span>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1px;margin-top:10px;box-shadow:0 2px 8px rgba(30,50,60,.04);">
+        <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:18px;">📊</span><span style="font-size:13px;font-weight:600;">数据统计</span></div><span style="font-size:14px;color:var(--gray);">›</span>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1px;margin-top:10px;box-shadow:0 2px 8px rgba(30,50,60,.04);">
+        <div style="display:flex;gap:10px;align-items:center;"><span style="font-size:18px;">⚙️</span><span style="font-size:13px;font-weight:600;">设置</span></div><span style="font-size:14px;color:var(--gray);">›</span>
+      </div>
+    </div>
+  </div>
+  <div class="tabbar">
+    <div class="tab"><div class="ic">🏠</div>首页</div>
+    <div class="tab"><div class="ic">🎨</div>模板</div>
+    <div class="tab"><div class="ic">🤖</div>AI</div>
+    <div class="tab on"><div class="ic">👤</div>我的</div>
+  </div>
+</div>
+</div></div>
+<div class="scr-cap">⑨ 个人中心<span>用户信息 + 会员升级 + 功能入口</span></div>
+</div>
+
+</div>
+
+<div class="section-title"><span class="bar"></span>设计规范速查 <small>颜色 · 字体 · 组件</small></div>
+<div style="max-width:1180px;margin:0 auto 60px;background:#fff;border-radius:24px;padding:28px 32px;box-shadow:0 10px 40px rgba(30,50,60,.08);">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+    <div>
+      <h3 style="font-size:16px;margin-bottom:14px;color:var(--ink);">🎨 配色方案（清新年轻风）</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <div style="flex:1;min-width:100px;"><div style="height:60px;background:var(--mint);border-radius:10px;"></div><div style="font-size:11px;margin-top:6px;color:var(--gray);"><b>主色</b> #2DD4BF</div></div>
+        <div style="flex:1;min-width:100px;"><div style="height:60px;background:var(--mint-d);border-radius:10px;"></div><div style="font-size:11px;margin-top:6px;color:var(--gray);"><b>深主色</b> #0FB9A6</div></div>
+        <div style="flex:1;min-width:100px;"><div style="height:60px;background:var(--coral);border-radius:10px;"></div><div style="font-size:11px;margin-top:6px;color:var(--gray);"><b>辅助色</b> #FF8A6B</div></div>
+        <div style="flex:1;min-width:100px;"><div style="height:60px;background:var(--gold);border-radius:10px;"></div><div style="font-size:11px;margin-top:6px;color:var(--gray);"><b>会员金</b> #FFC24B</div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:16px;margin-bottom:14px;color:var(--ink);">📐 圆角 & 间距</h3>
+      <div style="font-size:13px;line-height:2;color:var(--gray);">
+        <div><b style="color:var(--ink);">卡片圆角：</b>14-20px（大卡片）、8-12px（小卡片）</div>
+        <div><b style="color:var(--ink);">按钮圆角：</b>20-30px（全圆角胶囊）</div>
+        <div><b style="color:var(--ink);">内边距：</b>14-18px（页面）、12-16px（卡片内）</div>
+        <div><b style="color:var(--ink);">卡片间距：</b>10-14px</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--line);">
+    <h3 style="font-size:16px;margin-bottom:12px;color:var(--ink);">✨ 组件库示例</h3>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;">
+      <span class="chip">标签 · 薄荷绿</span>
+      <span class="chip coral">标签 · 珊瑚橙</span>
+      <span class="chip gray">标签 · 灰色</span>
+      <div style="padding:10px 18px;border-radius:24px;background:linear-gradient(135deg,var(--mint),var(--mint-d));color:#fff;font-size:13px;font-weight:600;">主按钮</div>
+      <div style="padding:10px 18px;border-radius:24px;border:1.5px solid var(--mint);color:var(--mint-d);font-size:13px;font-weight:600;">次按钮</div>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:1180px;margin:0 auto;text-align:center;color:var(--gray);font-size:13px;padding:20px;">
+  <p>© 2026 一纸简历 · UI 设计稿 · 仅供演示</p>
+  <p style="margin-top:6px;font-size:12px;">技术栈建议：小程序原生 / uni-app · 后端 Node.js / Python · AI 接入 GPT/文心一言</p>
+</div>
+
+</body>
+</html>
+</html>

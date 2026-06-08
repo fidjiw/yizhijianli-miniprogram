@@ -1,0 +1,56 @@
+/* components/input/input.wxss */
+.input-wrapper {
+  margin-bottom: 32rpx;
+}
+
+.input-label {
+  font-size: 24rpx;
+  color: #6B7787;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  margin-bottom: 12rpx;
+}
+
+.required-mark {
+  color: #FF8A6B;
+  font-weight: 700;
+}
+
+.input-box {
+  background: #fff;
+  border-radius: 16rpx;
+  border: 2rpx solid #EEF1F4;
+  padding: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.input-box.input-focus {
+  border-color: #2DD4BF;
+  background: #F8FCFB;
+  box-shadow: 0 4rpx 12rpx rgba(45, 212, 191, 0.15);
+}
+
+.input-box.input-error {
+  border-color: #FF8A6B;
+  background: #FFF5F3;
+}
+
+.input-field {
+  width: 100%;
+  font-size: 28rpx;
+  color: #1F2A37;
+  min-height: 32rpx;
+}
+
+.input-field::placeholder {
+  color: #AEB7C2;
+}
+
+.input-error-msg {
+  font-size: 20rpx;
+  color: #FF8A6B;
+  margin-top: 8rpx;
+  font-weight: 500;
+}

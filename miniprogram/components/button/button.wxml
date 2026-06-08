@@ -1,0 +1,10 @@
+<!--components/button/button.wxml-->
+<button
+  class="btn btn-{{type}} btn-{{size}} {{disabled ? 'btn-disabled' : ''}}"
+  bindtap="handleTap"
+  disabled="{{disabled}}">
+  <view class="btn-content">
+    <text wx:if="{{loading}}" class="btn-loading">⟳</text>
+    <text class="btn-text">{{text}}</text>
+  </view>
+</button>

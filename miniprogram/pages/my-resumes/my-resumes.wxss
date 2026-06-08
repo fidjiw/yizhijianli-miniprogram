@@ -1,0 +1,77 @@
+/* pages/my-resumes/my-resumes.wxss */
+.my-resumes-container {
+  min-height: 100vh;
+  padding: 32rpx 36rpx 100rpx;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: 800;
+}
+
+.create-btn {
+  font-size: 22rpx;
+  color: #0FB9A6;
+  font-weight: 700;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 28rpx;
+}
+
+.resume-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.resume-card {
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 24rpx;
+  display: flex;
+  gap: 24rpx;
+  align-items: center;
+  box-shadow: 0 8rpx 28rpx rgba(30, 50, 60, 0.05);
+}
+
+.resume-thumbnail {
+  width: 100rpx;
+  height: 132rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(160deg, #E6FBF7, #fff);
+  border: 1px solid #EEF1F4;
+  flex-shrink: 0;
+}
+
+.resume-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.resume-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.resume-time {
+  font-size: 22rpx;
+  color: #6B7787;
+  margin-bottom: 12rpx;
+}
+
+.resume-more {
+  color: #C4CCD4;
+  font-size: 40rpx;
+}

@@ -1,0 +1,20 @@
+<!--components/input/input.wxml-->
+<view class="input-wrapper">
+  <view class="input-label" wx:if="{{label}}">
+    <text>{{label}}</text>
+    <text class="required-mark" wx:if="{{required}}">*</text>
+  </view>
+
+  <view class="input-box {{isFocus ? 'input-focus' : ''}} {{error ? 'input-error' : ''}}">
+    <input
+      class="input-field"
+      type="{{type}}"
+      placeholder="{{placeholder}}"
+      value="{{value}}"
+      bindinput="handleInput"
+      bindfocus="handleFocus"
+      bindblur="handleBlur" />
+  </view>
+
+  <view class="input-error-msg" wx:if="{{error}}">{{error}}</view>
+</view>

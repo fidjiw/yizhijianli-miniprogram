@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "首页",
+  "enablePullDownRefresh": true,
+  "pullRefreshDistance": 80,
+  "usingComponents": {
+    "button": "/components/button/button",
+    "input": "/components/input/input",
+    "card": "/components/card/card"
+  }
+}
+

@@ -1,0 +1,25 @@
+/* components/card/card.wxss */
+.card {
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 24rpx;
+  box-shadow: 0 8rpx 28rpx rgba(30, 50, 60, 0.05);
+  border: 1px solid #EEF1F4;
+  transition: all 0.3s ease;
+}
+
+.card:active {
+  box-shadow: 0 12rpx 40rpx rgba(30, 50, 60, 0.1);
+  transform: translateY(-2rpx);
+}
+
+.card-gradient {
+  background: linear-gradient(120deg, #2DD4BF, #0FB9A6);
+  box-shadow: 0 16rpx 48rpx rgba(45, 212, 191, 0.25);
+  color: #fff;
+}
+
+.card-content {
+  word-break: break-all;
+  line-height: 1.8;
+}
