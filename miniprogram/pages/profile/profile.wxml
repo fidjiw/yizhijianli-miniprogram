@@ -14,7 +14,7 @@
         <!-- 昵称输入 -->
         <input
           class="user-name-input"
-          value="{{userInfo.nickname}}"
+          value="{{userInfo.nickname === '未设置昵称' ? '' : userInfo.nickname}}"
           placeholder="未设置昵称"
           placeholder-class="nickname-placeholder"
           bindblur="onNicknameBlur"
