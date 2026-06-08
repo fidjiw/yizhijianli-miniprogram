@@ -1,0 +1,53 @@
+<!-- pages/settings/settings.wxml -->
+<view class="settings-container">
+  <!-- 常规设置 -->
+  <view class="section">
+    <view class="section-title">常规</view>
+    <view class="menu-list">
+      <view class="menu-item" bindtap="handleClearCache">
+        <text class="menu-text">清除缓存</text>
+        <view class="menu-right">
+          <text class="menu-desc">{{cacheSize}}</text>
+          <text class="menu-arrow">›</text>
+        </view>
+      </view>
+      <view class="menu-item" bindtap="handleCheckUpdate">
+        <text class="menu-text">检查更新</text>
+        <view class="menu-right">
+          <text class="menu-desc">v{{version}}</text>
+          <text class="menu-arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 帮助与反馈 -->
+  <view class="section">
+    <view class="section-title">帮助与反馈</view>
+    <view class="menu-list">
+      <view class="menu-item" bindtap="handleContact">
+        <text class="menu-text">联系客服</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="handleAbout">
+        <text class="menu-text">关于我们</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 法律条款 -->
+  <view class="section">
+    <view class="section-title">法律条款</view>
+    <view class="menu-list">
+      <view class="menu-item" bindtap="goToAgreement">
+        <text class="menu-text">用户协议</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToPrivacy">
+        <text class="menu-text">隐私政策</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>

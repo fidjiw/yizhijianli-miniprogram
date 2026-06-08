@@ -1,0 +1,63 @@
+/* pages/settings/settings.wxss */
+
+.settings-container {
+  min-height: 100vh;
+  padding: 32rpx;
+  padding-bottom: 120rpx;
+  background: #F4F8F9;
+}
+
+/* 区块 */
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-title {
+  font-size: 24rpx;
+  color: #8F9BA8;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+  padding-left: 16rpx;
+}
+
+/* 菜单列表 */
+.menu-list {
+  background: #fff;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(30, 50, 60, 0.06);
+}
+
+.menu-item {
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #EEF1F4;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1E3240;
+}
+
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.menu-desc {
+  font-size: 26rpx;
+  color: #8F9BA8;
+}
+
+.menu-arrow {
+  font-size: 28rpx;
+  color: #C4CCD4;
+}

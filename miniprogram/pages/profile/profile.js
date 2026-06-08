@@ -249,27 +249,24 @@ Page({
     });
   },
 
-  // 我的模板
+  // 我的模板（收藏的模板）
   goToMyTemplates() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/favorites/favorites'
     });
   },
 
   // 数据统计
   goToStats() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/stats/stats'
     });
   },
 
   // 设置
   goToSettings() {
-    wx.showToast({
-      title: '功能开发中',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/settings/settings'
     });
   },
 
