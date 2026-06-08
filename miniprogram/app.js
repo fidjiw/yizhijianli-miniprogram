@@ -9,7 +9,7 @@ App({
   onLaunch() {
     // 初始化微信云开发
     wx.cloud.init({
-      env: 'your-cloud-env-id'  // 替换为你的云环境 ID
+      env: 'cloudbase-d1g90x9al09984900'  // 云环境 ID
     });
 
     // 检查登录状态
