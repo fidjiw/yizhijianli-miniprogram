@@ -55,15 +55,7 @@ Page({
       const resumes = await db.getUserResumes();
 
       if (resumes && resumes.length > 0) {
-        // 为每份简历添加模板预览图
-        const resumesWithPreview = resumes.map(resume => ({
-          ...resume,
-          // 如果简历有 templateId，使用对应模板的预览图
-          // 否则使用默认预览图（这里预留，实际需要准备图片）
-          preview: resume.templateId
-            ? `/assets/images/templates/template-${resume.templateId}.png`
-            : ''
-        }));
+        const resumesWithPreview = resumes.map(resume => this.buildResumeCard(resume));
 
         this.setData({
           resumeList: resumesWithPreview.slice(0, 3) // 只显示最近的3个
@@ -81,6 +73,109 @@ Page({
         resumeList: []
       });
     }
+  },
+
+  buildResumeCard(resume) {
+    const name = this.getFirstText(resume.name, resume.basicInfo && resume.basicInfo.name, '未命名简历');
+    const position = this.getFirstText(resume.position, resume.basicInfo && resume.basicInfo.position, '职位未设置');
+    const summary = this.getFirstText(
+      resume.summary,
+      resume.basicInfo && resume.basicInfo.summary,
+      '补充个人简介后，预览会展示你的核心优势'
+    );
+    const progress = resume.progress || this.calculateProgress(resume);
+    const accent = this.pickAccent(resume.templateId);
+
+    return {
+      ...resume,
+      id: resume._id || resume.id,
+      title: name,
+      position,
+      updateTime: this.formatUpdateTime(resume.updatedAt || resume.updateTime),
+      progress,
+      preview: {
+        name,
+        position,
+        summary,
+        accent,
+        lines: this.getPreviewLines(resume, position)
+      }
+    };
+  },
+
+  getFirstText(...values) {
+    const value = values.find(item => typeof item === 'string' && item.trim());
+    return value ? value.trim() : '';
+  },
+
+  getPreviewLines(resume, position) {
+    const experience = resume.experience || resume.workExperience || [];
+    const education = resume.education || [];
+    const skills = resume.skills || [];
+    const lines = [];
+
+    if (experience[0]) {
+      lines.push(this.getFirstText(
+        experience[0].company && experience[0].position
+          ? `${experience[0].company} · ${experience[0].position}`
+          : '',
+        experience[0].description
+      ));
+    }
+
+    if (education[0]) {
+      lines.push(this.getFirstText(
+        education[0].school && education[0].major
+          ? `${education[0].school} · ${education[0].major}`
+          : '',
+        education[0].description
+      ));
+    }
+
+    if (skills.length > 0) {
+      const skillNames = skills.map(item => typeof item === 'string' ? item : item.name).filter(Boolean);
+      if (skillNames.length > 0) {
+        lines.push(skillNames.slice(0, 4).join(' · '));
+      }
+    }
+
+    return lines.filter(Boolean).slice(0, 2).concat([
+      `${position}方向简历`,
+      '点击继续完善内容'
+    ]).slice(0, 2);
+  },
+
+  calculateProgress(resume) {
+    const checks = [
+      resume.name,
+      resume.position,
+      resume.phone,
+      resume.email,
+      resume.summary,
+      resume.education && resume.education.length,
+      resume.experience && resume.experience.length,
+      resume.skills && resume.skills.length
+    ];
+    const filled = checks.filter(Boolean).length;
+    return Math.max(20, Math.round((filled / checks.length) * 100));
+  },
+
+  formatUpdateTime(value) {
+    if (!value) return '刚刚';
+    if (typeof value === 'string') return value;
+    if (value.toDate) {
+      return value.toDate().toLocaleDateString();
+    }
+    if (value instanceof Date) {
+      return value.toLocaleDateString();
+    }
+    return '最近';
+  },
+
+  pickAccent(templateId) {
+    const accents = ['#0FB9A6', '#F97316', '#2563EB', '#7C3AED', '#111827', '#EA580C'];
+    const index = Math.max(0, Number(templateId || 1) - 1) % accents.length;
+    return accents[index];
   },
 
   // 新建简历

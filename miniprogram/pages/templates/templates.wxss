@@ -68,36 +68,206 @@
 }
 
 .template-preview {
-  height: 280rpx;
+  height: 330rpx;
   position: relative;
-  padding: 20rpx;
+  padding: 22rpx;
   overflow: hidden;
 }
 
-.template-preview-image {
-  position: absolute;
-  top: 0;
-  left: 0;
+.resume-paper {
+  position: relative;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 14rpx 32rpx rgba(30, 50, 60, 0.14);
+  transform: rotate(-1deg);
 }
 
-.template-placeholder {
+.template-card:nth-child(2n) .resume-paper {
+  transform: rotate(1deg);
+}
+
+.resume-accent {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 8rpx;
+}
+
+.resume-head {
+  display: flex;
+  flex-direction: column;
+  gap: 5rpx;
+  margin-bottom: 12rpx;
+}
+
+.resume-name-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2rpx;
+}
+
+.resume-name {
+  font-size: 24rpx;
+  line-height: 1.15;
+  font-weight: 800;
+  color: #111827;
+}
+
+.resume-role {
+  font-size: 18rpx;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.resume-contact {
+  font-size: 14rpx;
+  line-height: 1.25;
+  color: #6B7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resume-summary {
+  font-size: 15rpx;
+  line-height: 1.35;
+  color: #374151;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.resume-section {
+  margin-top: 9rpx;
+}
+
+.resume-section-title {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 0;
+  gap: 7rpx;
+  margin-bottom: 5rpx;
+  font-size: 15rpx;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #111827;
 }
 
-.template-placeholder-icon {
-  font-size: 80rpx;
-  opacity: 0.3;
+.resume-title-mark {
+  width: 16rpx;
+  height: 5rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+}
+
+.resume-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 6rpx;
+  margin-bottom: 3rpx;
+}
+
+.resume-dot {
+  width: 5rpx;
+  height: 5rpx;
+  border-radius: 50%;
+  margin-top: 8rpx;
+  flex-shrink: 0;
+}
+
+.resume-line-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 14rpx;
+  line-height: 1.35;
+  color: #4B5563;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.resume-paper-sidebar {
+  padding-left: 86rpx;
+}
+
+.resume-paper-sidebar .resume-accent {
+  width: 68rpx;
+  height: 100%;
+}
+
+.resume-paper-sidebar .resume-name,
+.resume-paper-sidebar .resume-role,
+.resume-paper-sidebar .resume-contact {
+  color: #111827 !important;
+}
+
+.resume-paper-business {
+  border-radius: 6rpx;
+  transform: rotate(0deg);
+}
+
+.resume-paper-business .resume-accent {
+  height: 38rpx;
+}
+
+.resume-paper-business .resume-head {
+  padding-top: 20rpx;
+}
+
+.resume-paper-creative {
+  border-radius: 24rpx;
+}
+
+.resume-paper-creative::after {
+  content: "";
+  position: absolute;
+  right: -28rpx;
+  top: -26rpx;
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.12);
+}
+
+.resume-paper-minimal {
+  border: 2rpx solid #111827;
+  border-radius: 4rpx;
+  box-shadow: 8rpx 8rpx 0 rgba(17, 24, 39, 0.12);
+  transform: rotate(0deg);
+}
+
+.resume-paper-minimal .resume-accent {
+  height: 0;
+}
+
+.resume-paper-minimal .resume-section-title {
+  border-bottom: 1rpx solid #111827;
+  padding-bottom: 3rpx;
+}
+
+.resume-paper-campus {
+  border-radius: 18rpx;
+}
+
+.resume-paper-campus .resume-accent {
+  left: 20rpx;
+  top: 18rpx;
+  width: 54rpx;
+  height: 54rpx;
+  border-radius: 50%;
+  opacity: 0.16;
+}
+
+.resume-paper-campus .resume-head {
+  padding-left: 64rpx;
+  min-height: 58rpx;
 }
 
 .template-badge {

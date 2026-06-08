@@ -19,25 +19,38 @@
       <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="internet">互联网</text>
       <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="design">设计</text>
       <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="business">商务</text>
+      <text class="chip chip-gray" bindtap="handleCategoryChange" data-category="general">通用</text>
     </view>
   </scroll-view>
 
   <!-- 模板网格 -->
   <view class="templates-grid">
-    <view class="template-card" wx:for="{{templates}}" wx:key="id" bindtap="handleTemplateClick" data-id="{{item.id}}">
+    <view class="template-card" wx:for="{{filteredTemplates}}" wx:key="id" bindtap="handleTemplateClick" data-id="{{item.id}}">
       <view class="template-preview" style="background: {{item.bgColor}};">
-        <!-- 预览图 -->
-        <image
-          wx:if="{{item.preview}}"
-          class="template-preview-image"
-          src="{{item.preview}}"
-          mode="aspectFill"
-          lazy-load="{{true}}"
-        />
-        <!-- 占位图 -->
-        <view wx:else class="template-placeholder">
-          <text class="template-placeholder-icon">📄</text>
+        <view class="resume-paper resume-paper-{{item.layout}}">
+          <view class="resume-accent" style="background: {{item.accent}};"></view>
+
+          <view class="resume-head">
+            <view class="resume-name-row">
+              <text class="resume-name">{{item.sample.name}}</text>
+              <text class="resume-role" style="color: {{item.accent}};">{{item.sample.role}}</text>
+            </view>
+            <text class="resume-contact">{{item.sample.contact}}</text>
+            <text class="resume-summary">{{item.sample.summary}}</text>
+          </view>
+
+          <view class="resume-section" wx:for="{{item.sample.sections}}" wx:for-item="section" wx:for-index="sectionIndex" wx:key="title">
+            <view class="resume-section-title">
+              <text class="resume-title-mark" style="background: {{item.accent}};"></text>
+              <text>{{section.title}}</text>
+            </view>
+            <view class="resume-line" wx:for="{{section.items}}" wx:for-item="line" wx:for-index="lineIndex" wx:key="*this">
+              <text class="resume-dot" style="background: {{item.accent}};"></text>
+              <text class="resume-line-text">{{line}}</text>
+            </view>
+          </view>
         </view>
+
         <!-- 标签 -->
         <text class="template-badge chip-coral" wx:if="{{item.hot}}">热门</text>
         <text class="template-badge chip" wx:if="{{item.vip}}" style="background: #FFF8EC; color: #B8860B;">VIP</text>
