@@ -74,7 +74,15 @@ const dbUtil = {
    * 获取单个简历详情
    */
   getResumeById(id) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      // 检查数据库
+      const isReady = await this.checkDatabase();
+      if (!isReady) {
+        console.log('⚠️ 数据库未就绪');
+        resolve(null);
+        return;
+      }
+
       db.collection('resumes')
         .doc(id)
         .get()
@@ -84,7 +92,13 @@ const dbUtil = {
         })
         .catch(err => {
           console.error('❌ 获取简历详情失败:', err);
-          reject(err);
+
+          // 如果是文档不存在或无权限
+          if (err.errCode === -502004 || err.errCode === -1) {
+            resolve(null);
+          } else {
+            reject(err);
+          }
         });
     });
   },

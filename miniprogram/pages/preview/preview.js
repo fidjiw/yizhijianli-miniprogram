@@ -32,6 +32,19 @@ Page({
     db.getResumeById(id)
       .then(resume => {
         wx.hideLoading();
+
+        if (!resume) {
+          wx.showModal({
+            title: '简历不存在',
+            content: '该简历可能已被删除或您没有访问权限',
+            showCancel: false,
+            success: () => {
+              wx.navigateBack();
+            }
+          });
+          return;
+        }
+
         this.setData({
           resumeData: resume,
           loading: false
@@ -40,10 +53,22 @@ Page({
       .catch(err => {
         wx.hideLoading();
         console.error('加载简历失败:', err);
-        wx.showToast({
+
+        wx.showModal({
           title: '加载失败',
-          icon: 'none'
+          content: '无法加载简历数据，可能是云数据库未配置或网络问题',
+          showCancel: true,
+          cancelText: '返回',
+          confirmText: '重试',
+          success: (res) => {
+            if (res.confirm) {
+              this.loadResumeData(id);
+            } else {
+              wx.navigateBack();
+            }
+          }
         });
+
         this.setData({ loading: false });
       });
   },
